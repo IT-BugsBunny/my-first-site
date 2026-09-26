@@ -30,5 +30,50 @@ body {
 }
 
 h1 {
-  color:
+  color: #ffffff;
+  margin-bottom: 8px;
+}
 
+.subtitle {
+  color: #a0a0a0;
+  margin-bottom: 24px;
+}
+
+.skills, .contact {
+  text-align: left;
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #e0e0e0;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+  color: #cccccc;
+}
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64b5f6;
+  text-decoration: none;
+  margin-top: 8px;
+  width: fit-content;
+}
+
+.social-link:hover {
+  color: #90caf9;
+  text-decoration: underline;
+}
+.contact p {
+  color: #cccccc;
+  margin-bottom: 8px;
+}
