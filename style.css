@@ -39,9 +39,27 @@ h1 {
   margin-bottom: 24px;
 }
 
-.skills, .contact {
+.skills, .projects, .contact {
   text-align: left;
   margin-top: 20px;
+}
+
+.project-card {
+  background: #2a2a2a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.project-card h3 {
+  color: #ffffff;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.project-card p {
+  color: #cccccc;
+  margin-bottom: 12px;
 }
 
 h2 {
