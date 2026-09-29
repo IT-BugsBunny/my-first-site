@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Forge — генератор паролей</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="hero">
+    <p class="eyebrow">Live demo · Security tool</p>
+    <h1>Password Forge</h1>
+    <p class="lead">Генератор паролей: длина, наборы символов, индикатор силы и копирование в буфер.</p>
+  </header>
+
+  <main class="forge">
+    <div class="output-row">
+      <code id="password" aria-live="polite">········</code>
+      <button type="button" id="copy-btn" class="btn ghost">Copy</button>
+    </div>
+
+    <div class="strength">
+      <div class="strength__bar"><i id="strength-bar"></i></div>
+      <span id="strength-label">Strong</span>
+    </div>
+
+    <label class="field">
+      <span class="field__top">
+        <span>Длина</span>
+        <strong id="length-val">20</strong>
+      </span>
+      <input type="range" id="length" min="8" max="64" value="20">
+    </label>
+
+    <div class="options">
+      <label class="check"><input type="checkbox" id="upper" checked> A–Z</label>
+      <label class="check"><input type="checkbox" id="lower" checked> a–z</label>
+      <label class="check"><input type="checkbox" id="digits" checked> 0–9</label>
+      <label class="check"><input type="checkbox" id="symbols" checked> !@#$</label>
+    </div>
+
+    <div class="actions">
+      <button type="button" id="generate-btn" class="btn primary">Generate</button>
+      <button type="button" id="regen-btn" class="btn ghost">↻ Again</button>
+    </div>
+
+    <p class="note" id="copy-note" hidden>Скопировано в буфер</p>
+  </main>
+
+  <p class="hint">Как проверить: двигайте ползунок длины, снимайте галочки алфавитов, жмите Generate / Copy — пароль и полоска силы должны обновиться.</p>
+
+  <script src="app.js"></script>
+</body>
+</html>

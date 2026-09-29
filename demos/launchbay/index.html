@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launchbay — ship without the chaos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+    <a class="back" href="../../index.html">← Назад в портфолио</a>
+
+    <header class="hero">
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="brand">Launchbay</p>
+        <h1>Деплои без хаоса в чатах</h1>
+        <p class="tagline">Учебный лендинг SaaS: бренд, CTA и форма waitlist на одной компактной странице.</p>
+        <div class="cta-row">
+          <a class="cta cta--primary" href="#waitlist">К форме</a>
+          <a class="cta cta--ghost" href="#how">Как проверить</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="how">
+      <h2>Как проверить</h2>
+      <ol class="howto">
+        <li>Нажмите «К форме» или прокрутите вниз до waitlist.</li>
+        <li>Введите любой email (например <code>test@mail.com</code>) и нажмите Get early access.</li>
+        <li>Должно появиться зелёное подтверждение — отправка имитируется без сервера.</li>
+      </ol>
+    </section>
+
+    <section class="section section--split">
+      <div>
+        <h2>О продукте</h2>
+        <p class="section__text">Концепт статуса релизов: один экран вместо шума в чатах. Ниже — живой сигнал «prod · healthy».</p>
+      </div>
+      <aside class="signal" aria-hidden="true">
+        <span class="signal__dot"></span>
+        <span>prod · healthy · 14s ago</span>
+      </aside>
+    </section>
+
+    <section class="section" id="waitlist">
+      <h2>Waitlist</h2>
+      <p class="section__text">Форма без бэкенда: после отправки показывается локальное сообщение.</p>
+      <form class="waitlist" id="waitlist-form">
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@company.com" required>
+        <button type="submit">Get early access</button>
+      </form>
+      <p class="form-note" id="form-note" hidden>Готово. Форма сработала — в реальном продукте здесь был бы ответ сервера.</p>
+    </section>
+
+    <footer class="footer">
+      <span>Launchbay · portfolio demo</span>
+      <a href="../../index.html">← Назад в портфолио</a>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

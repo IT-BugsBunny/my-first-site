@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command Deck — интерактивный терминал</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="hero">
+    <p class="eyebrow">Live demo · Web + DevOps</p>
+    <h1>Command Deck</h1>
+    <p class="lead">Интерактивный терминал в браузере: ввод команд, история стрелками ↑↓, очистка экрана.</p>
+  </header>
+
+  <main class="terminal" id="terminal" aria-label="Интерактивный терминал">
+    <div class="terminal__bar">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="terminal__title">anton@portfolio:~</span>
+    </div>
+    <div class="terminal__body" id="output"></div>
+    <form class="terminal__input-row" id="cli-form" autocomplete="off">
+      <label for="cli" class="prompt">➜</label>
+      <input id="cli" name="cli" type="text" spellcheck="false" autofocus placeholder="help">
+    </form>
+  </main>
+
+  <p class="hint">Как проверить: введите <code>help</code> и Enter. Дальше попробуйте <code>whoami</code>, <code>skills</code>, <code>neofetch</code>, <code>hire</code>, <code>clear</code>.</p>
+
+  <script src="app.js"></script>
+</body>
+</html>

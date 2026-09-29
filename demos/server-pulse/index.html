@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Pulse — live monitoring demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="hero">
+    <p class="eyebrow">Live demo · DevOps UI</p>
+    <h1>Server Pulse</h1>
+    <p class="lead">Имитация панели мониторинга: метрики обновляются сами, лог событий пишется в реальном времени.</p>
+  </header>
+
+  <section class="board">
+    <div class="status-row">
+      <div class="pill online"><span class="blink"></span> production · healthy</div>
+      <div class="meta">host: edge-01 · region: fra</div>
+    </div>
+
+    <div class="metrics">
+      <article class="metric">
+        <header>
+          <h2>CPU</h2>
+          <strong id="cpu-val">42%</strong>
+        </header>
+        <div class="bar"><i id="cpu-bar"></i></div>
+      </article>
+      <article class="metric">
+        <header>
+          <h2>RAM</h2>
+          <strong id="ram-val">61%</strong>
+        </header>
+        <div class="bar"><i id="ram-bar"></i></div>
+      </article>
+      <article class="metric">
+        <header>
+          <h2>Disk</h2>
+          <strong id="disk-val">38%</strong>
+        </header>
+        <div class="bar"><i id="disk-bar"></i></div>
+      </article>
+      <article class="metric">
+        <header>
+          <h2>Latency</h2>
+          <strong id="lat-val">24ms</strong>
+        </header>
+        <div class="spark" id="spark" aria-hidden="true"></div>
+      </article>
+    </div>
+
+    <div class="panels">
+      <article class="panel">
+        <h3>Services</h3>
+        <ul class="services" id="services"></ul>
+      </article>
+      <article class="panel">
+        <h3>Event log</h3>
+        <div class="log" id="log" aria-live="polite"></div>
+      </article>
+    </div>
+  </section>
+
+  <p class="hint">Как проверить: подождите 1–2 секунды — % метрик и sparkline меняются сами, в Event log появляются новые строки, статус worker-queue может переключаться up / degraded.</p>
+
+  <script src="app.js"></script>
+</body>
+</html>

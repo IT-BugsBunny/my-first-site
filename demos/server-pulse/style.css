@@ -1,0 +1,264 @@
+:root {
+  --bg: #070a0f;
+  --panel: #10161f;
+  --line: #243041;
+  --text: #e6eef7;
+  --muted: #8091a6;
+  --ok: #3dd68c;
+  --warn: #f5c542;
+  --danger: #ff6b6b;
+  --cyan: #5ec8ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(94, 200, 255, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(61, 214, 140, 0.08), transparent 35%),
+    var(--bg);
+  padding: 28px 20px 48px;
+}
+
+.back {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+
+.back:hover {
+  color: var(--cyan);
+}
+
+.hero {
+  max-width: 900px;
+  margin: 0 auto 22px;
+}
+
+.eyebrow {
+  color: var(--cyan);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: Syne, sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  max-width: 56ch;
+}
+
+.board {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(61, 214, 140, 0.35);
+  background: rgba(61, 214, 140, 0.08);
+  color: var(--ok);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.blink {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 10px var(--ok);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 800px) {
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.metric,
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.metric header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.metric h2,
+.panel h3 {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.metric strong {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.bar {
+  height: 8px;
+  background: #1a2430;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--ok));
+  transition: width 0.6s ease;
+}
+
+.spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 36px;
+}
+
+.spark span {
+  flex: 1;
+  background: rgba(94, 200, 255, 0.55);
+  border-radius: 2px 2px 0 0;
+  min-height: 4px;
+  transition: height 0.45s ease;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 12px;
+}
+
+@media (max-width: 800px) {
+  .panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel h3 {
+  margin-bottom: 12px;
+}
+
+.services {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.services li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #0c1219;
+  border: 1px solid #1c2836;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.badge.up {
+  color: var(--ok);
+  background: rgba(61, 214, 140, 0.12);
+}
+
+.badge.degraded {
+  color: var(--warn);
+  background: rgba(245, 197, 66, 0.12);
+}
+
+.log {
+  font-size: 12px;
+  line-height: 1.5;
+  max-height: 220px;
+  overflow: auto;
+  display: grid;
+  gap: 6px;
+}
+
+.log-line {
+  color: #9aabbd;
+}
+
+.log-line time {
+  color: var(--muted);
+  margin-right: 8px;
+}
+
+.log-line.ok { color: var(--ok); }
+.log-line.warn { color: var(--warn); }
+.log-line.info { color: var(--cyan); }
+
+.hint {
+  max-width: 900px;
+  margin: 14px auto 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
