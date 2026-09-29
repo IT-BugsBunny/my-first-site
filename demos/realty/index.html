@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KONTUR — недвижимость</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back-to-portfolio" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="topbar">
+    <a class="logo" href="#top">KONTUR</a>
+    <nav class="topbar__nav">
+      <a href="#catalog">Объекты</a>
+      <a href="#viewing">Просмотр</a>
+    </nav>
+    <a class="topbar__cta" href="#viewing">Заявка на просмотр</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img
+        class="hero__shot"
+        src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=80"
+        alt="Современный жилой комплекс"
+        width="1800"
+        height="1200"
+      >
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <p class="hero__brand">KONTUR</p>
+        <h1>Квартиры с ясной геометрией сделки</h1>
+        <p class="hero__lead">Подбор, показ и сопровождение в Москве и области. Без хаоса объявлений — только проверенный каталог.</p>
+        <a class="btn-primary" href="#catalog">Смотреть объекты</a>
+      </div>
+    </section>
+
+    <section class="catalog" id="catalog">
+      <div class="catalog__head">
+        <div>
+          <p class="eyebrow">Каталог</p>
+          <h2>Актуальные объекты</h2>
+        </div>
+        <p class="catalog__count"><span id="visible-count">6</span> из <span id="total-count">6</span></p>
+      </div>
+
+      <div class="filters" role="search" aria-label="Фильтры объектов">
+        <div class="filter">
+          <p class="filter__label">Комнаты</p>
+          <div class="chips" data-filter="rooms">
+            <button type="button" class="chip is-active" data-value="all">Все</button>
+            <button type="button" class="chip" data-value="1">1</button>
+            <button type="button" class="chip" data-value="2">2</button>
+            <button type="button" class="chip" data-value="3">3+</button>
+          </div>
+        </div>
+        <div class="filter">
+          <p class="filter__label">Цена</p>
+          <div class="chips" data-filter="price">
+            <button type="button" class="chip is-active" data-value="all">Любая</button>
+            <button type="button" class="chip" data-value="0-12">до 12 млн</button>
+            <button type="button" class="chip" data-value="12-20">12–20 млн</button>
+            <button type="button" class="chip" data-value="20-999">от 20 млн</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" id="property-grid">
+        <article class="listing" data-rooms="2" data-price="14800">
+          <div class="listing__media">
+            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80" alt="Светлая двухкомнатная квартира" width="900" height="700" loading="lazy">
+            <span class="listing__tag">Новостройка</span>
+          </div>
+          <div class="listing__body">
+            <p class="listing__price">14,8 млн ₽</p>
+            <h3>2-комн. · 58 м² · Хамовники</h3>
+            <p class="listing__meta">Этаж 9/16 · м. Фрунзенская · 2023</p>
+            <button type="button" class="listing__btn" data-object="2-комн., Хамовники, 14,8 млн">Записаться на просмотр</button>
+          </div>
+        </article>
+
+        <article class="listing" data-rooms="1" data-price="9200">
+          <div class="listing__media">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=80" alt="Студия с панорамными окнами" width="900" height="700" loading="lazy">
+            <span class="listing__tag">Готова</span>
+          </div>
+          <div class="listing__body">
+            <p class="listing__price">9,2 млн ₽</p>
+            <h3>1-комн. · 36 м² · Динамо</h3>
+            <p class="listing__meta">Этаж 12/22 · м. Динамо · с мебелью</p>
+            <button type="button" class="listing__btn" data-object="1-комн., Динамо, 9,2 млн">Записаться на просмотр</button>
+          </div>
+        </article>
+
+        <article class="listing" data-rooms="3" data-price="26500">
+          <div class="listing__media">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80" alt="Просторная трёхкомнатная квартира" width="900" height="700" loading="lazy">
+            <span class="listing__tag">Вид на парк</span>
+          </div>
+          <div class="listing__body">
+            <p class="listing__price">26,5 млн ₽</p>
+            <h3>3-комн. · 92 м² · Сокольники</h3>
+            <p class="listing__meta">Этаж 5/9 · евроремонт · паркинг</p>
+            <button type="button" class="listing__btn" data-object="3-комн., Сокольники, 26,5 млн">Записаться на просмотр</button>
+          </div>
+        </article>
+
+        <article class="listing" data-rooms="2" data-price="11700">
+          <div class="listing__media">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=900&q=80" alt="Современная квартира с кухней-гостиной" width="900" height="700" loading="lazy">
+          </div>
+          <div class="listing__body">
+            <p class="listing__price">11,7 млн ₽</p>
+            <h3>2-комн. · 51 м² · Преображенка</h3>
+            <p class="listing__meta">Этаж 4/14 · м. Преображенская · 2019</p>
+            <button type="button" class="listing__btn" data-object="2-комн., Преображенка, 11,7 млн">Записаться на просмотр</button>
+          </div>
+        </article>
+
+        <article class="listing" data-rooms="1" data-price="7800">
+          <div class="listing__media">
+            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=900&q=80" alt="Компактная квартира для инвестиций" width="900" height="700" loading="lazy">
+            <span class="listing__tag">Инвест</span>
+          </div>
+          <div class="listing__body">
+            <p class="listing__price">7,8 млн ₽</p>
+            <h3>1-комн. · 29 м² · Некрасовка</h3>
+            <p class="listing__meta">Этаж 8/17 · сдача 2024 · ипотека ок</p>
+            <button type="button" class="listing__btn" data-object="1-комн., Некрасовка, 7,8 млн">Записаться на просмотр</button>
+          </div>
+        </article>
+
+        <article class="listing" data-rooms="3" data-price="18900">
+          <div class="listing__media">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Семейная квартира с большой кухней" width="900" height="700" loading="lazy">
+          </div>
+          <div class="listing__body">
+            <p class="listing__price">18,9 млн ₽</p>
+            <h3>3-комн. · 74 м² · Отрадное</h3>
+            <p class="listing__meta">Этаж 2/12 · двор без машин · школа рядом</p>
+            <button type="button" class="listing__btn" data-object="3-комн., Отрадное, 18,9 млн">Записаться на просмотр</button>
+          </div>
+        </article>
+      </div>
+
+      <p class="empty" id="empty-state" hidden>Нет объектов по выбранным фильтрам. Сбросьте комнаты или цену.</p>
+    </section>
+
+    <section class="viewing" id="viewing">
+      <div class="viewing__layout">
+        <div class="viewing__intro">
+          <p class="eyebrow">Просмотр</p>
+          <h2>Заявка на показ</h2>
+          <p>Подберём слот за день. Риелтор приедет с ключами и планом района — без «просто посмотрите на Циане».</p>
+          <ul class="viewing__list">
+            <li>Фиксируем объект и удобное время</li>
+            <li>Присылаем маршрут и контакты</li>
+            <li>После показа — разбор вариантов</li>
+          </ul>
+        </div>
+
+        <form class="form" id="viewing-form" novalidate>
+          <label>
+            Имя
+            <input type="text" name="name" required autocomplete="name" placeholder="Как к вам обращаться">
+          </label>
+          <label>
+            Телефон
+            <input type="tel" name="phone" required autocomplete="tel" placeholder="+7 900 000-00-00">
+          </label>
+          <label>
+            Объект
+            <input type="text" name="object" id="object-field" placeholder="Выберите в каталоге или впишите сами">
+          </label>
+          <label>
+            Удобное время
+            <select name="slot" required>
+              <option value="" disabled selected>Выберите слот</option>
+              <option>Сегодня, вечер</option>
+              <option>Завтра, утро</option>
+              <option>Завтра, день</option>
+              <option>Выходные</option>
+            </select>
+          </label>
+          <label>
+            Комментарий
+            <textarea name="comment" rows="3" placeholder="Ипотека, торг, особые пожелания"></textarea>
+          </label>
+          <button class="btn-primary btn-primary--wide" type="submit">Отправить заявку</button>
+          <p class="form__note">Перезвоним в течение рабочего часа.</p>
+          <p class="form__success" id="form-success" hidden>Заявка отправлена. Ждите звонка от агента KONTUR.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>KONTUR · агентство недвижимости</p>
+    <a href="tel:+74951234567">+7 495 123-45-67</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
