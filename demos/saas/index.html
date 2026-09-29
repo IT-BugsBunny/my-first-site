@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIVET — ship from commit to prod</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back-to-portfolio" href="../../index.html">← Назад в портфолио</a>
+
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="logo" href="#top">
+      <span class="logo__mark" aria-hidden="true"></span>
+      RIVET
+    </a>
+    <nav class="topbar__nav">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <div class="topbar__actions">
+      <button type="button" class="kbd-hint" id="cmd-open" title="Command palette">
+        <span>Search</span>
+        <kbd>⌘K</kbd>
+      </button>
+      <a class="btn-ghost" href="#pricing">Start free</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="hero__brand">RIVET</p>
+        <h1>От коммита до прода — без ручного деплоя</h1>
+        <p class="hero__lead">Preview на каждый PR, флаги без релиза и метрики в одном пайплайне. Инфраструктура, которая ощущается как продукт.</p>
+        <div class="hero__cta">
+          <a class="btn-primary" href="#pricing">Попробовать Free</a>
+          <a class="btn-link" href="#demo">Смотреть live demo →</a>
+        </div>
+        <p class="hero__trust">SOC2 · GitHub/GitLab · 14 дней Pro</p>
+      </div>
+
+      <div class="hero__stage" id="demo">
+        <div class="terminal" aria-label="Демо терминала RIVET">
+          <div class="terminal__bar">
+            <span></span><span></span><span></span>
+            <p>rivet · deploy</p>
+          </div>
+          <pre class="terminal__body" id="terminal-body"><span class="t-muted">$ </span><span class="cursor">█</span>
+</pre>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <p class="metric__label">latency p99</p>
+            <p class="metric__value"><span id="lat">42</span><small>ms</small></p>
+          </div>
+          <div class="metric">
+            <p class="metric__label">deploys / day</p>
+            <p class="metric__value" id="deploys">128</p>
+          </div>
+          <div class="metric metric--wide">
+            <p class="metric__label">edge health</p>
+            <div class="health">
+              <span class="health__dot"></span>
+              <strong id="health-text">operational</strong>
+              <span class="health__bars" id="spark" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="section-head">
+        <p class="eyebrow">Capabilities</p>
+        <h2>Технические фишки, которые чувствуются</h2>
+        <p>Не слайды — рабочие паттерны из CI, edge и feature management.</p>
+      </div>
+
+      <div class="features__grid">
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17l6-6 4 4 6-8"/><path d="M14 7h6v6"/></svg>
+          </div>
+          <h3>Preview Environments</h3>
+          <p>Каждый PR поднимает URL за &lt;40 сек. Комментарий в GitHub со ссылкой и статусом checks.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14"/><path d="M12 5v14"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+          <h3>Feature Flags</h3>
+          <p>Включайте фичи по сегменту, без нового релиза. Rollback одним тогглом.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10"/><path d="M8 9h3v5H8zM13 12h3v2h-3z"/></svg>
+          </div>
+          <h3>Observability</h3>
+          <p>Traces, logs и deploy markers на одной ленте. Видно, какой коммит сломал p99.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Policy as Code</h3>
+          <p>Правила доступа и секреты в Git. Audit trail для SOC2 без отдельного портала.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+          </div>
+          <h3>Edge Deploy</h3>
+          <p>Раскатка на 30+ регионов. Canary 5% → 100% с авто-откатом по SLO.</p>
+        </article>
+        <article class="feature">
+          <div class="feature__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7h13M8 12h13M8 17h13"/><path d="M3 7h.01M3 12h.01M3 17h.01"/></svg>
+          </div>
+          <h3>CLI & SDK</h3>
+          <p><code>rivet deploy</code>, webhooks и TypeScript SDK. Тот же API, что в UI.</p>
+        </article>
+      </div>
+
+      <div class="lab">
+        <div class="lab__copy">
+          <p class="eyebrow">Live control</p>
+          <h3>Пощупайте feature flag</h3>
+          <p>Переключите флаг — UI ниже меняется мгновенно. Так работают релизы без деплоя.</p>
+        </div>
+        <div class="lab__panel">
+          <label class="toggle">
+            <input type="checkbox" id="flag-beta" checked>
+            <span class="toggle__ui" aria-hidden="true"></span>
+            <span>
+              <strong>beta.checkout_v2</strong>
+              <small>targeting: 25% of traffic</small>
+            </span>
+          </label>
+          <div class="lab__preview" id="flag-preview" data-on="true">
+            <p class="lab__badge" id="flag-badge">FLAG ON</p>
+            <p id="flag-copy">Новый checkout активен. Конверсия в песочнице +12%.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Pricing</p>
+        <h2>Free · Pro · Enterprise</h2>
+        <p>Прозрачные лимиты. Апгрейд за минуту, без sales-call на старте.</p>
+        <div class="billing" role="group" aria-label="Период оплаты">
+          <button type="button" class="billing__btn is-active" data-billing="monthly">Monthly</button>
+          <button type="button" class="billing__btn" data-billing="yearly">Yearly <em>−20%</em></button>
+        </div>
+      </div>
+
+      <div class="plans">
+        <article class="plan">
+          <p class="plan__tier">Free</p>
+          <p class="plan__price"><span data-price-monthly="0" data-price-yearly="0">0</span> ₽</p>
+          <p class="plan__note">Для сайд-проектов и пет-проектов</p>
+          <ul>
+            <li>1 проект</li>
+            <li>3 preview / день</li>
+            <li>Community support</li>
+          </ul>
+          <a class="plan__btn" href="#top">Начать Free</a>
+        </article>
+
+        <article class="plan plan--hot">
+          <p class="plan__tag">Popular</p>
+          <p class="plan__tier">Pro</p>
+          <p class="plan__price"><span id="pro-price" data-price-monthly="4900" data-price-yearly="3900">4 900</span> ₽<small>/мес</small></p>
+          <p class="plan__note">Для команд, которые шипят каждый день</p>
+          <ul>
+            <li>Unlimited previews</li>
+            <li>Feature flags + audit</li>
+            <li>SLO alerts</li>
+            <li>Priority support</li>
+          </ul>
+          <a class="plan__btn plan__btn--fill" href="#top">Выбрать Pro</a>
+        </article>
+
+        <article class="plan">
+          <p class="plan__tier">Enterprise</p>
+          <p class="plan__price">Custom</p>
+          <p class="plan__note">SSO, VPC и контракт под compliance</p>
+          <ul>
+            <li>SSO / SAML</li>
+            <li>Private networking</li>
+            <li>Dedicated CSM</li>
+            <li>Uptime SLA 99.99%</li>
+          </ul>
+          <a class="plan__btn" href="mailto:hello@rivet.dev">Связаться</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <h2>Готовы почувствовать деплой без тревоги?</h2>
+      <p>Подключите репозиторий — первый preview через пару минут.</p>
+      <a class="btn-primary" href="#pricing">Создать аккаунт</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>RIVET · developer platform demo</p>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+  </footer>
+
+  <div class="cmd" id="cmd" hidden>
+    <div class="cmd__panel" role="dialog" aria-label="Command palette">
+      <input type="search" id="cmd-input" placeholder="Jump to… features, pricing, demo" autocomplete="off">
+      <ul id="cmd-list">
+        <li data-href="#features"><kbd>F</kbd> Features</li>
+        <li data-href="#pricing"><kbd>P</kbd> Pricing</li>
+        <li data-href="#demo"><kbd>D</kbd> Live demo</li>
+      </ul>
+      <p class="cmd__hint">Esc to close · Enter to go</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
