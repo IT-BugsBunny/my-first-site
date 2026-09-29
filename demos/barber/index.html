@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORM — барбершоп</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back-to-portfolio" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="topbar">
+    <a class="logo" href="#top">FORM</a>
+    <nav class="topbar__nav">
+      <a href="#services">Услуги</a>
+      <a href="#gallery">Работы</a>
+      <a href="#book">Запись</a>
+    </nav>
+    <a class="btn-sm" href="#book">Онлайн-запись</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img
+        class="hero__shot"
+        src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1800&q=80"
+        alt="Интерьер барбершопа FORM"
+        width="1800"
+        height="1200"
+      >
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <p class="hero__brand">FORM</p>
+        <h1>Стрижка с характером, без лишнего театра</h1>
+        <p class="hero__lead">Мужские и женские стрижки, борода, укладки. Центр города · без ожидания в живой очереди.</p>
+        <a class="btn-primary" href="#book">Записаться</a>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="section-head">
+        <p class="eyebrow">Прайс</p>
+        <h2>Услуги и цены</h2>
+        <p>Честные слоты по 45–90 минут. Чаевые — по желанию.</p>
+      </div>
+
+      <div class="price-grid">
+        <article class="price-card">
+          <h3>Стрижка</h3>
+          <p class="price-card__sum">1 900 ₽</p>
+          <p>Мужская / женская · 45 мин · мойка включена</p>
+        </article>
+        <article class="price-card">
+          <h3>Стрижка + борода</h3>
+          <p class="price-card__sum">2 700 ₽</p>
+          <p>Контур, масло, фен · 70 мин</p>
+        </article>
+        <article class="price-card">
+          <h3>Только борода</h3>
+          <p class="price-card__sum">1 400 ₽</p>
+          <p>Моделирование и уход · 30 мин</p>
+        </article>
+        <article class="price-card">
+          <h3>Укладка</h3>
+          <p class="price-card__sum">1 100 ₽</p>
+          <p>Стайлинг под образ · 25 мин</p>
+        </article>
+        <article class="price-card">
+          <h3>Камуфляж седины</h3>
+          <p class="price-card__sum">2 200 ₽</p>
+          <p>Мягкий тон, без резкого контраста · 50 мин</p>
+        </article>
+        <article class="price-card price-card--feat">
+          <p class="price-card__tag">Пакет</p>
+          <h3>FORM Full</h3>
+          <p class="price-card__sum">3 900 ₽</p>
+          <p>Стрижка + борода + укладка · 90 мин</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="section-head">
+        <p class="eyebrow">Галерея</p>
+        <h2>До / после</h2>
+        <p>Тяните ползунок — сравните результат.</p>
+      </div>
+
+      <div class="ba-list">
+        <figure class="ba" data-ba>
+          <div class="ba__viewport">
+            <img class="ba__after" src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=1000&q=80" alt="После стрижки" width="1000" height="1250">
+            <div class="ba__before-wrap">
+              <img class="ba__before" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1000&q=80" alt="До стрижки" width="1000" height="1250">
+            </div>
+            <input class="ba__range" type="range" min="0" max="100" value="50" aria-label="Сравнение до и после">
+            <div class="ba__handle" aria-hidden="true"></div>
+            <span class="ba__label ba__label--before">До</span>
+            <span class="ba__label ba__label--after">После</span>
+          </div>
+          <figcaption>Fade + текстура сверху</figcaption>
+        </figure>
+
+        <figure class="ba" data-ba>
+          <div class="ba__viewport">
+            <img class="ba__after" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=1000&q=80" alt="После укладки" width="1000" height="1250">
+            <div class="ba__before-wrap">
+              <img class="ba__before" src="https://images.unsplash.com/photo-1493256338651-d82f7acb2b38?auto=format&fit=crop&w=1000&q=80" alt="До укладки" width="1000" height="1250">
+            </div>
+            <input class="ba__range" type="range" min="0" max="100" value="48" aria-label="Сравнение до и после">
+            <div class="ba__handle" aria-hidden="true"></div>
+            <span class="ba__label ba__label--before">До</span>
+            <span class="ba__label ba__label--after">После</span>
+          </div>
+          <figcaption>Борода + контур</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="book" id="book">
+      <div class="book__layout">
+        <div class="book__intro">
+          <p class="eyebrow">Запись</p>
+          <h2>Выберите день и время</h2>
+          <p>Календарь на ближайшие слоты. Подтверждение придёт в WhatsApp или SMS.</p>
+        </div>
+
+        <div class="book__panel">
+          <div class="calendar" id="calendar">
+            <div class="calendar__head">
+              <button type="button" id="cal-prev" aria-label="Предыдущий месяц">‹</button>
+              <h3 id="cal-title">—</h3>
+              <button type="button" id="cal-next" aria-label="Следующий месяц">›</button>
+            </div>
+            <div class="calendar__dow" aria-hidden="true">
+              <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+            </div>
+            <div class="calendar__grid" id="cal-grid"></div>
+          </div>
+
+          <div class="slots">
+            <p class="slots__label">Время на <strong id="selected-day">—</strong></p>
+            <div class="slots__grid" id="slots-grid"></div>
+          </div>
+
+          <form class="form" id="book-form" novalidate>
+            <label>
+              Услуга
+              <select name="service" required>
+                <option value="" disabled selected>Выберите услугу</option>
+                <option>Стрижка — 1 900 ₽</option>
+                <option>Стрижка + борода — 2 700 ₽</option>
+                <option>Только борода — 1 400 ₽</option>
+                <option>Укладка — 1 100 ₽</option>
+                <option>Камуфляж седины — 2 200 ₽</option>
+                <option>FORM Full — 3 900 ₽</option>
+              </select>
+            </label>
+            <label>
+              Имя
+              <input type="text" name="name" required minlength="2" autocomplete="name" placeholder="Как к вам обращаться">
+            </label>
+            <label>
+              Телефон
+              <input type="tel" name="phone" required autocomplete="tel" placeholder="+7 900 000-00-00">
+            </label>
+            <input type="hidden" name="date" id="field-date">
+            <input type="hidden" name="time" id="field-time">
+            <p class="form__summary" id="book-summary">Выберите дату и время в календаре.</p>
+            <button class="btn-primary btn-primary--wide" type="submit">Подтвердить запись</button>
+            <p class="form__error" id="form-error" hidden></p>
+            <p class="form__success" id="form-success" hidden>Запись принята! Ждите подтверждение в мессенджере.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>FORM · барбершоп · ул. Примерная, 12</p>
+    <a href="tel:+74951230000">+7 495 123-00-00</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
