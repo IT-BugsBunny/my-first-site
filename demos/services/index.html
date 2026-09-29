@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чистый Дом — клининг и услуги для дома</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back-to-portfolio" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="logo" href="#hero">Чистый Дом</a>
+      <nav class="site-nav" aria-label="Основная навигация">
+        <a href="#services">Услуги</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#booking">Заявка</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn--ghost" href="tel:+79001234567">Позвонить</a>
+        <a class="btn btn--primary" href="https://wa.me/79001234567" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero__media" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1800&q=80"
+          alt=""
+          width="1800"
+          height="1200"
+        >
+      </div>
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <p class="hero__eyebrow">Клининг · Москва и МО</p>
+        <h1 class="hero__title">Чистота, которую видно сразу</h1>
+        <p class="hero__text">
+          Квартиры, офисы и после ремонта. Фиксированные цены, своя химия, приезд в удобный слот.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#booking">Оставить заявку</a>
+          <a class="btn btn--ghost" href="#services">Смотреть цены</a>
+        </div>
+        <ul class="hero__facts">
+          <li><strong>от 2 900 ₽</strong><span>стандартная уборка</span></li>
+          <li><strong>в день заявки</strong><span>свободные слоты</span></li>
+          <li><strong>гарантия</strong><span>доработаем бесплатно</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="section-head">
+        <h2 class="section-title">Услуги и цены</h2>
+        <p class="section-text">Выберите формат — цена на карточке, без скрытых доплат за базовый объём.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1556912173-46c336b7fd26?auto=format&fit=crop&w=800&q=80" alt="Стандартная уборка квартиры" width="800" height="560" loading="lazy">
+          <div class="service-card__body">
+            <h3 class="service-card__title">Стандартная уборка</h3>
+            <p class="service-card__text">Пыль, полы, кухня и санузел. Для регулярного порядка.</p>
+            <p class="service-card__price">от 2 900 ₽</p>
+            <a class="btn btn--primary btn--small" href="#booking">Записаться</a>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=80" alt="Генеральная уборка" width="800" height="560" loading="lazy">
+          <div class="service-card__body">
+            <h3 class="service-card__title">Генеральная уборка</h3>
+            <p class="service-card__text">Глубже: техника, плитка, труднодоступные зоны.</p>
+            <p class="service-card__price">от 5 500 ₽</p>
+            <a class="btn btn--primary btn--small" href="#booking">Записаться</a>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="Уборка после ремонта" width="800" height="560" loading="lazy">
+          <div class="service-card__body">
+            <h3 class="service-card__title">После ремонта</h3>
+            <p class="service-card__text">Строительная пыль, следы краски, окна и подоконники.</p>
+            <p class="service-card__price">от 8 900 ₽</p>
+            <a class="btn btn--primary btn--small" href="#booking">Записаться</a>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Уборка офиса" width="800" height="560" loading="lazy">
+          <div class="service-card__body">
+            <h3 class="service-card__title">Офис / коммерция</h3>
+            <p class="service-card__text">Разово или по графику. Договор и закрывающие документы.</p>
+            <p class="service-card__price">от 4 200 ₽</p>
+            <a class="btn btn--primary btn--small" href="#booking">Записаться</a>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Химчистка мебели" width="800" height="560" loading="lazy">
+          <div class="service-card__body">
+            <h3 class="service-card__title">Химчистка мебели</h3>
+            <p class="service-card__text">Диваны, кресла, матрасы. Сухая и влажная обработка.</p>
+            <p class="service-card__price">от 1 800 ₽</p>
+            <a class="btn btn--primary btn--small" href="#booking">Записаться</a>
+          </div>
+        </article>
+        <article class="service-card">
+          <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80" alt="Мытьё окон" width="800" height="560" loading="lazy">
+          <div class="service-card__body">
+            <h3 class="service-card__title">Окна и балконы</h3>
+            <p class="service-card__text">Рамы, стёкла, москитные сетки. Квартира или дом.</p>
+            <p class="service-card__price">от 350 ₽/м²</p>
+            <a class="btn btn--primary btn--small" href="#booking">Записаться</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="steps" id="how">
+      <div class="section-head">
+        <h2 class="section-title">Как это работает</h2>
+        <p class="section-text">Три шага — от заявки до чистого результата.</p>
+      </div>
+      <ol class="steps-grid">
+        <li>
+          <span class="steps-grid__num">01</span>
+          <h3>Заявка</h3>
+          <p>Форма, звонок или WhatsApp. Уточним площадь и дату.</p>
+        </li>
+        <li>
+          <span class="steps-grid__num">02</span>
+          <h3>Приезд бригады</h3>
+          <p>Со своим оборудованием и безопасной химией.</p>
+        </li>
+        <li>
+          <span class="steps-grid__num">03</span>
+          <h3>Приёмка</h3>
+          <p>Проверяете вместе с нами. Что-то не так — доработаем.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="reviews" id="reviews">
+      <div class="section-head">
+        <h2 class="section-title">Отзывы клиентов</h2>
+        <p class="section-text">Реальные формулировки — как пишут после уборки.</p>
+      </div>
+      <div class="reviews-grid">
+        <article class="review-card">
+          <p class="review-card__text">«Заказали генеральную после ремонта. Убрали пыль так, что окна снова «синие». Приехали вовремя.»</p>
+          <p class="review-card__author">Марина · ЖК «Северный»</p>
+        </article>
+        <article class="review-card">
+          <p class="review-card__text">«Офис раз в неделю. Стабильно, без сюрпризов по цене. Бухгалтерии удобно с актами.»</p>
+          <p class="review-card__author">Игорь · коворкинг</p>
+        </article>
+        <article class="review-card">
+          <p class="review-card__text">«Диван после химчистки как новый. Написали в WhatsApp вечером — утром уже подтвердили слот.»</p>
+          <p class="review-card__author">Алина · Тропарёво</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="booking" id="booking">
+      <div class="booking__layout">
+        <div class="booking__intro">
+          <p class="eyebrow">Запись онлайн</p>
+          <h2 class="section-title">Оставить заявку</h2>
+          <p class="section-text section-text--left">
+            Напишите имя, телефон и услугу — перезвоним за 15 минут в рабочее время
+            или ответим в WhatsApp.
+          </p>
+          <div class="booking__contacts">
+            <a class="btn btn--primary" href="tel:+79001234567">+7 900 123-45-67</a>
+            <a class="btn btn--outline" href="https://wa.me/79001234567" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </div>
+          <img
+            class="booking__photo"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80"
+            alt="Чистая светлая квартира после уборки"
+            width="1000"
+            height="700"
+            loading="lazy"
+          >
+        </div>
+        <form class="booking-form" action="#" method="post">
+          <div class="form-field">
+            <label for="client-name">Имя</label>
+            <input id="client-name" name="name" type="text" placeholder="Анна" required>
+          </div>
+          <div class="form-field">
+            <label for="client-phone">Телефон</label>
+            <input id="client-phone" name="phone" type="tel" placeholder="+7 900 000-00-00" required>
+          </div>
+          <div class="form-field">
+            <label for="client-service">Услуга</label>
+            <select id="client-service" name="service" required>
+              <option value="">Выберите услугу</option>
+              <option>Стандартная уборка</option>
+              <option>Генеральная уборка</option>
+              <option>После ремонта</option>
+              <option>Офис / коммерция</option>
+              <option>Химчистка мебели</option>
+              <option>Окна и балконы</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="client-date">Желаемая дата</label>
+            <input id="client-date" name="date" type="date">
+          </div>
+          <button class="btn btn--primary" type="submit">Отправить заявку</button>
+          <p class="form-note">Демо-форма: заявка никуда не уходит — учебный лендинг.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="site-footer__inner">
+      <div class="footer-block">
+        <h2 class="footer-title">Чистый Дом</h2>
+        <p class="footer-text">Клининг для квартир, офисов и после ремонта.</p>
+      </div>
+      <div class="footer-block">
+        <h3 class="footer-heading">Зона выезда</h3>
+        <p class="footer-text">Москва и МО до 30 км</p>
+        <p class="footer-text">Ежедневно 08:00–21:00</p>
+      </div>
+      <div class="footer-block">
+        <h3 class="footer-heading">Связь</h3>
+        <p class="footer-text"><a href="tel:+79001234567">+7 900 123-45-67</a></p>
+        <p class="footer-text"><a href="https://wa.me/79001234567" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
+      </div>
+      <div class="footer-block">
+        <h3 class="footer-heading">Быстрые действия</h3>
+        <p class="footer-text"><a href="#booking">Оставить заявку</a></p>
+        <p class="footer-text"><a href="#services">Прайс</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
