@@ -4,44 +4,125 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #121212;
   display: flex;
   justify-content: center;
-  padding: 40px 20px;
+  align-items: stretch;
+  padding: 16px 20px;
+  overflow: hidden;
 }
 
 .container {
   background: #1e1e1e;
-  padding: 30px;
+  padding: 20px 24px 16px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  width: 100%;
   max-width: 500px;
+  max-height: calc(100vh - 32px);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  --projects-head-height: 72px;
+}
+
+.page-header {
+  flex-shrink: 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #333;
 }
 
 .avatar {
   border-radius: 50%;
-  margin-bottom: 20px;
-  width: 150px;
-  height: 150px;
+  margin-bottom: 12px;
+  width: 110px;
+  height: 110px;
   object-fit: cover;
 }
 
 h1 {
   color: #ffffff;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  font-size: 1.35rem;
 }
 
 .subtitle {
   color: #a0a0a0;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
 }
 
-.skills, .projects, .contact {
+.skills {
   text-align: left;
-  margin-top: 20px;
+  margin-top: 0;
+}
+
+.skills h2 {
+  margin-bottom: 6px;
+}
+
+.skills li {
+  padding: 4px 0;
+}
+
+.page-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  text-align: left;
+  padding-right: 4px;
+  margin-top: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.page-scroll::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 999px;
+}
+
+.projects,
+.contact {
+  text-align: left;
+  margin-top: 0;
+}
+
+.projects-head {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: linear-gradient(#1e1e1e 70%, rgba(30, 30, 30, 0.92));
+  padding: 14px 0 10px;
+  border-bottom: 1px solid #333;
+  transition: box-shadow 0.3s ease;
+}
+
+.projects-head.is-stuck {
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.projects-intro {
+  color: #a0a0a0;
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.project-block {
+  padding-bottom: 8px;
 }
 
 .project-card {
@@ -72,23 +153,34 @@ h1 {
   line-height: 1.45;
 }
 
-.projects-intro {
-  color: #a0a0a0;
-  font-size: 14px;
-  margin: 0 0 4px;
-  line-height: 1.45;
-}
-
 .project-card p code {
   font-size: 12px;
   color: #90caf9;
 }
 
 .projects-category {
+  position: sticky;
+  top: var(--projects-head-height);
+  z-index: 3;
   font-size: 15px;
   font-weight: 600;
   color: #e0e0e0;
-  margin: 18px 0 10px;
+  margin: 0 0 10px;
+  padding: 10px 0 8px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #2f2f2f;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.projects-category.is-stuck {
+  background: #232323;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+  color: #ffffff;
+}
+
+.contact-title {
+  font-size: 18px;
+  font-weight: normal;
 }
 
 .project-tags {
@@ -159,6 +251,7 @@ li {
   border-bottom: 1px solid #333;
   color: #cccccc;
 }
+
 .social-link {
   display: flex;
   align-items: center;
@@ -173,7 +266,68 @@ li {
   color: #90caf9;
   text-decoration: underline;
 }
+
+.contact {
+  padding-bottom: 12px;
+}
+
 .contact p {
   color: #cccccc;
   margin-bottom: 8px;
+}
+
+/* Mobile: document scroll — nested overflow often breaks touch scrolling */
+@media (max-width: 768px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+  }
+
+  body {
+    overflow: auto;
+    overflow-x: hidden;
+    align-items: flex-start;
+    padding: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .container {
+    max-height: none;
+    height: auto;
+    overflow: visible;
+  }
+
+  .page-scroll {
+    flex: none;
+    min-height: 0;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .projects-head,
+  .projects-category {
+    /* stick to viewport while the page itself scrolls */
+    position: sticky;
+  }
+}
+
+@media (max-height: 720px) {
+  .avatar {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    margin-bottom: 10px;
+  }
+
+  .container {
+    padding: 14px 16px 10px;
+  }
 }
