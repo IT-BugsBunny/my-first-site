@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMI — беспроводные наушники</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back-to-portfolio" href="../../index.html">← Назад в портфолио</a>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>Бесплатная доставка от 1 шт</span>
+      <span>14 дней на возврат</span>
+      <span>Осталось 17 комплектов</span>
+      <span>Скидка −38% только сегодня</span>
+      <span>Бесплатная доставка от 1 шт</span>
+      <span>14 дней на возврат</span>
+      <span>Осталось 17 комплектов</span>
+      <span>Скидка −38% только сегодня</span>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <a class="logo" href="#top">LUMI</a>
+    <nav class="topbar__nav">
+      <a href="#catalog">Цвета</a>
+      <a href="#order">Оформить</a>
+    </nav>
+    <button class="cart-btn" type="button" id="cart-open" aria-label="Открыть корзину">
+      Корзина
+      <span class="cart-btn__count" id="cart-count">0</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img
+        class="hero__shot"
+        src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=1800&q=80"
+        alt="Наушники LUMI крупным планом"
+        width="1800"
+        height="1200"
+      >
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <p class="hero__brand">LUMI</p>
+        <h1>Звук, который хочется надеть</h1>
+        <p class="hero__lead">Лимитированный дроп беспроводных наушников. Один продукт — четыре цвета. Цена только на этой странице.</p>
+        <div class="hero__cta">
+          <a class="btn-buy" href="#catalog">Выбрать цвет</a>
+          <p class="hero__timer">До конца акции: <strong id="countdown">02:14:37</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof">
+      <p><strong>4.9</strong> · 2 148 отзывов</p>
+      <p><strong>312</strong> купили за сутки</p>
+      <p><span class="pulse"></span> <strong id="viewers">47</strong> смотрят сейчас</p>
+    </section>
+
+    <section class="catalog" id="catalog">
+      <div class="section-head">
+        <h2>Выберите цвет</h2>
+        <p>Каждый оттенок — отдельный SKU. Добавьте в корзину и оформите заказ ниже.</p>
+      </div>
+
+      <div class="grid" id="product-grid">
+        <article class="product" data-id="coral" data-name="LUMI Coral" data-price="4990" data-old="7990">
+          <div class="product__media">
+            <span class="badge badge--sale">−38%</span>
+            <span class="badge badge--hot">Хит</span>
+            <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?auto=format&fit=crop&w=800&q=80" alt="LUMI Coral" width="800" height="800" loading="lazy">
+          </div>
+          <div class="product__body">
+            <h3>Coral</h3>
+            <p class="product__meta">Осталось 5 шт</p>
+            <p class="product__price"><s>7 990 ₽</s> <strong>4 990 ₽</strong></p>
+            <button class="btn-add" type="button">Купить</button>
+          </div>
+        </article>
+
+        <article class="product" data-id="lime" data-name="LUMI Lime" data-price="4990" data-old="7990">
+          <div class="product__media">
+            <span class="badge badge--sale">−38%</span>
+            <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=800&q=80" alt="LUMI Lime" width="800" height="800" loading="lazy">
+          </div>
+          <div class="product__body">
+            <h3>Lime</h3>
+            <p class="product__meta">Осталось 4 шт</p>
+            <p class="product__price"><s>7 990 ₽</s> <strong>4 990 ₽</strong></p>
+            <button class="btn-add" type="button">Купить</button>
+          </div>
+        </article>
+
+        <article class="product" data-id="sky" data-name="LUMI Sky" data-price="4990" data-old="7990">
+          <div class="product__media">
+            <span class="badge badge--sale">−38%</span>
+            <span class="badge badge--new">New</span>
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="LUMI Sky" width="800" height="800" loading="lazy">
+          </div>
+          <div class="product__body">
+            <h3>Sky</h3>
+            <p class="product__meta">Осталось 6 шт</p>
+            <p class="product__price"><s>7 990 ₽</s> <strong>4 990 ₽</strong></p>
+            <button class="btn-add" type="button">Купить</button>
+          </div>
+        </article>
+
+        <article class="product" data-id="ink" data-name="LUMI Ink" data-price="4990" data-old="7990">
+          <div class="product__media">
+            <span class="badge badge--sale">−38%</span>
+            <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=80" alt="LUMI Ink" width="800" height="800" loading="lazy">
+          </div>
+          <div class="product__body">
+            <h3>Ink</h3>
+            <p class="product__meta">Осталось 2 шт</p>
+            <p class="product__price"><s>7 990 ₽</s> <strong>4 990 ₽</strong></p>
+            <button class="btn-add" type="button">Купить</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="trust">
+      <div class="trust__item">
+        <strong>Гарантия 12 мес</strong>
+        <p>Официальная поддержка и замена</p>
+      </div>
+      <div class="trust__item">
+        <strong>Доставка 1–3 дня</strong>
+        <p>Курьер или пункт выдачи</p>
+      </div>
+      <div class="trust__item">
+        <strong>Оплата при получении</strong>
+        <p>Или картой онлайн без риска</p>
+      </div>
+    </section>
+
+    <section class="order" id="order">
+      <div class="order__layout">
+        <div class="order__intro">
+          <h2>Оформление заказа</h2>
+          <p>Заполните форму — менеджер подтвердит заказ в WhatsApp или по телефону за 10 минут.</p>
+          <ul class="order__perks">
+            <li>Подарок: чехол при заказе сегодня</li>
+            <li>Скидка уже применена в корзине</li>
+            <li>Можно изменить цвет до отправки</li>
+          </ul>
+        </div>
+
+        <form class="checkout" id="checkout-form" novalidate>
+          <label>
+            Имя
+            <input type="text" name="name" required autocomplete="name" placeholder="Как к вам обращаться">
+          </label>
+          <label>
+            Телефон
+            <input type="tel" name="phone" required autocomplete="tel" placeholder="+7 900 000-00-00">
+          </label>
+          <label>
+            Город и адрес
+            <input type="text" name="address" required autocomplete="street-address" placeholder="Город, улица, дом">
+          </label>
+          <label>
+            Комментарий
+            <textarea name="comment" rows="3" placeholder="Код домофона, удобное время"></textarea>
+          </label>
+
+          <div class="checkout__summary" id="checkout-summary">
+            <p>Корзина пуста — добавьте цвет выше.</p>
+          </div>
+
+          <button class="btn-buy btn-buy--wide" type="submit">Подтвердить заказ</button>
+          <p class="checkout__note">Нажимая кнопку, вы соглашаетесь на звонок для подтверждения.</p>
+          <p class="checkout__success" id="checkout-success" hidden>Заказ принят! Мы скоро свяжемся с вами.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>LUMI · демо одностраничного магазина</p>
+    <a href="#catalog">К цветам</a>
+  </footer>
+
+  <aside class="mini-cart" id="mini-cart" aria-hidden="true">
+    <div class="mini-cart__head">
+      <h2>Мини-корзина</h2>
+      <button type="button" class="mini-cart__close" id="cart-close" aria-label="Закрыть">×</button>
+    </div>
+    <div class="mini-cart__items" id="cart-items"></div>
+    <div class="mini-cart__foot">
+      <p class="mini-cart__total">Итого: <strong id="cart-total">0 ₽</strong></p>
+      <p class="mini-cart__save" id="cart-save"></p>
+      <a class="btn-buy btn-buy--wide" href="#order" id="go-checkout">Оформить заказ</a>
+    </div>
+  </aside>
+  <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+
+  <div class="toast" id="toast" hidden>Добавлено в корзину</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
