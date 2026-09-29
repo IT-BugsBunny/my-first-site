@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terra — итальянский ресторан</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back-to-portfolio" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="logo" href="#hero">Terra</a>
+      <nav class="site-nav" aria-label="Основная навигация">
+        <a href="#about">О нас</a>
+        <a href="#menu">Меню</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#booking">Бронь</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="btn btn--primary" href="#booking">Забронировать столик</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero__media" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80"
+          alt=""
+          width="1800"
+          height="1200"
+        >
+      </div>
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <p class="hero__eyebrow">Итальянская кухня · Москва</p>
+        <h1 class="hero__title">Вечер в Тоскане — без билета на самолёт</h1>
+        <p class="hero__text">
+          Свежая паста каждый день, открытая кухня и тёплый зал для ужина вдвоём или компании.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#booking">Забронировать столик</a>
+          <a class="btn btn--ghost" href="#menu">Смотреть меню</a>
+        </div>
+        <ul class="hero__facts">
+          <li><strong>12:00–01:00</strong><span>ежедневно</span></li>
+          <li><strong>ул. Примерная, 12</strong><span>центр</span></li>
+          <li><strong>4.9 ★</strong><span>отзывы гостей</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about__inner">
+        <div class="about__copy">
+          <p class="eyebrow">Почему Terra</p>
+          <h2 class="section-title">Еда, которую хочется показать друзьям</h2>
+          <p class="section-text section-text--left">
+            Мы готовим по семейным рецептам: тесто замешиваем сами, сыры выбираем у проверенных поставщиков,
+            а вино — итальянское, под каждое блюдо.
+          </p>
+          <ul class="about__list">
+            <li>Открытая кухня — видно, как готовят</li>
+            <li>Бронь за 2 минуты: форма или WhatsApp</li>
+            <li>Детское меню и места у окна</li>
+          </ul>
+          <a class="btn btn--primary" href="https://wa.me/74951234567" target="_blank" rel="noopener noreferrer">Написать в WhatsApp</a>
+        </div>
+        <figure class="about__photo">
+          <img
+            src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1000&q=80"
+            alt="Открытая кухня ресторана Terra"
+            width="1000"
+            height="750"
+            loading="lazy"
+          >
+        </figure>
+      </div>
+    </section>
+
+    <section class="menu" id="menu">
+      <div class="section-head">
+        <h2 class="section-title">Меню</h2>
+        <p class="section-text">Выберите блюдо — цена и состав сразу под фото.</p>
+      </div>
+
+      <div class="menu-category">
+        <h3 class="menu-category__title">Закуски</h3>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=800&q=80" alt="Брускетта с томатами" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Брускетта с томатами</h4>
+              <p class="menu-card__text">Хрустящий чиабатта, вяленые томаты, базилик и оливковое масло.</p>
+              <p class="menu-card__price">420 ₽</p>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" alt="Карпаччо из говядины" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Карпаччо из говядины</h4>
+              <p class="menu-card__text">Тонкие слайсы, руккола, пармезан и капелька лимонного сока.</p>
+              <p class="menu-card__price">690 ₽</p>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=800&q=80" alt="Антипасто мисто" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Антипасто мисто</h4>
+              <p class="menu-card__text">Ассорти сыров, оливок и мясных деликатесов на двоих.</p>
+              <p class="menu-card__price">890 ₽</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3 class="menu-category__title">Основные блюда</h3>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=800&q=80" alt="Паста карбонара" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Паста карбонара</h4>
+              <p class="menu-card__text">Спагетти, гуанчиале, яйцо и пекорино — классика по-римски.</p>
+              <p class="menu-card__price">780 ₽</p>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=800&q=80" alt="Ризотто с грибами" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Ризотто с грибами</h4>
+              <p class="menu-card__text">Арборио, белые грибы, тимьян и пармезан.</p>
+              <p class="menu-card__price">820 ₽</p>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Стейк рибай" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Стейк рибай</h4>
+              <p class="menu-card__text">На гриле, с соусом из красного вина и овощами.</p>
+              <p class="menu-card__price">1 650 ₽</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <h3 class="menu-category__title">Десерты</h3>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80" alt="Тирамису" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Тирамису</h4>
+              <p class="menu-card__text">Домашний рецепт: маскарпоне, эспрессо и какао.</p>
+              <p class="menu-card__price">480 ₽</p>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80" alt="Панна котта" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Панна котта</h4>
+              <p class="menu-card__text">Нежный крем с ягодным кули.</p>
+              <p class="menu-card__price">450 ₽</p>
+            </div>
+          </article>
+          <article class="menu-card">
+            <img class="menu-card__img" src="https://images.unsplash.com/photo-1612203985729-70726954388c?auto=format&fit=crop&w=800&q=80" alt="Канноли" width="800" height="600" loading="lazy">
+            <div class="menu-card__body">
+              <h4 class="menu-card__title">Канноли</h4>
+              <p class="menu-card__text">Хрустящие трубочки с рикоттой и фисташками.</p>
+              <p class="menu-card__price">520 ₽</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="section-head">
+        <h2 class="section-title">Атмосфера</h2>
+        <p class="section-text">Зал, кухня и блюда — как будет выглядеть ваш вечер.</p>
+      </div>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Зал у окна" width="900" height="675" loading="lazy">
+          <figcaption class="gallery-item__caption">Зал у окна</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80" alt="Открытая кухня" width="900" height="675" loading="lazy">
+          <figcaption class="gallery-item__caption">Открытая кухня</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80" alt="Паста карбонара" width="900" height="675" loading="lazy">
+          <figcaption class="gallery-item__caption">Паста карбонара</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=900&q=80" alt="Антипасто" width="900" height="675" loading="lazy">
+          <figcaption class="gallery-item__caption">Антипасто</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80" alt="Вечерний зал" width="900" height="675" loading="lazy">
+          <figcaption class="gallery-item__caption">Вечерний зал</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80" alt="Тирамису" width="900" height="675" loading="lazy">
+          <figcaption class="gallery-item__caption">Тирамису</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="booking" id="booking">
+      <div class="booking__layout">
+        <div class="booking__intro">
+          <p class="eyebrow">Бронь за 2 минуты</p>
+          <h2 class="section-title">Забронировать столик</h2>
+          <p class="section-text section-text--left">
+            Заполните форму — администратор перезвонит и подтвердит время.
+            Или напишите в WhatsApp, если удобнее так.
+          </p>
+          <div class="booking__contacts">
+            <a class="btn btn--primary" href="tel:+74951234567">Позвонить</a>
+            <a class="btn btn--outline" href="https://wa.me/74951234567" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          </div>
+          <img
+            class="booking__photo"
+            src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=900&q=80"
+            alt="Сервировка стола в Terra"
+            width="900"
+            height="600"
+            loading="lazy"
+          >
+        </div>
+        <form class="booking-form" action="#" method="post">
+          <div class="form-field">
+            <label for="guest-name">Имя</label>
+            <input id="guest-name" name="name" type="text" placeholder="Анна" required>
+          </div>
+          <div class="form-field">
+            <label for="guest-phone">Телефон</label>
+            <input id="guest-phone" name="phone" type="tel" placeholder="+7 900 000-00-00" required>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="guest-date">Дата</label>
+              <input id="guest-date" name="date" type="date" required>
+            </div>
+            <div class="form-field">
+              <label for="guest-count">Гостей</label>
+              <input id="guest-count" name="guests" type="number" min="1" max="20" value="2" required>
+            </div>
+          </div>
+          <button class="btn btn--primary" type="submit">Отправить заявку</button>
+          <p class="form-note">Демо-форма: заявка никуда не уходит, это учебный лендинг.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contacts">
+    <div class="site-footer__inner">
+      <div class="footer-block">
+        <h2 class="footer-title">Terra</h2>
+        <p class="footer-text">Итальянский ресторан</p>
+        <p class="footer-text">Ждём вас на ужин и семейные праздники.</p>
+      </div>
+      <div class="footer-block">
+        <h3 class="footer-heading">Адрес</h3>
+        <p class="footer-text">г. Москва, ул. Примерная, 12</p>
+        <p class="footer-text">м. Примерная · 5 мин пешком</p>
+      </div>
+      <div class="footer-block">
+        <h3 class="footer-heading">Часы работы</h3>
+        <p class="footer-text">Пн–Чт: 12:00–23:00</p>
+        <p class="footer-text">Пт–Вс: 12:00–01:00</p>
+      </div>
+      <div class="footer-block">
+        <h3 class="footer-heading">Контакты</h3>
+        <p class="footer-text">
+          <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+        </p>
+        <p class="footer-text">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram @terra.moscow</a>
+        </p>
+        <p class="footer-text">
+          <a href="https://wa.me/74951234567" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
