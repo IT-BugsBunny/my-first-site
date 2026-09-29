@@ -49,6 +49,7 @@ h1 {
   border: 1px solid #333;
   border-radius: 10px;
   padding: 16px;
+  margin-bottom: 12px;
 }
 
 .project-card h3 {
@@ -68,6 +69,19 @@ h1 {
 .project-card p {
   color: #cccccc;
   margin-bottom: 12px;
+  line-height: 1.45;
+}
+
+.projects-intro {
+  color: #a0a0a0;
+  font-size: 14px;
+  margin: 0 0 4px;
+  line-height: 1.45;
+}
+
+.project-card p code {
+  font-size: 12px;
+  color: #90caf9;
 }
 
 .projects-category {
@@ -77,43 +91,57 @@ h1 {
   margin: 18px 0 10px;
 }
 
-.project-card--placeholder {
-  min-height: 56px;
+.project-tags {
   display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.project-tags span {
+  font-size: 11px;
+  color: #a0a0a0;
+  border: 1px solid #333;
+  background: #1e1e1e;
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-btn {
+  display: inline-flex;
   align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #64b5f6;
+  text-decoration: none;
+  border: 1px solid #333;
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 7px 12px;
 }
 
-.project-card--placeholder .code-typing {
-  margin: 0;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 14px;
-  color: #cccccc;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid #64b5f6;
-  width: 0;
-  animation: code-typing 4s steps(28, end) infinite, code-cursor 0.75s step-end infinite;
+.project-btn:hover {
+  color: #90caf9;
+  border-color: #4a4a4a;
 }
 
-@keyframes code-typing {
-  0%, 8% {
-    width: 0;
-  }
-  45%, 65% {
-    width: 28ch;
-  }
-  90%, 100% {
-    width: 0;
-  }
+.project-btn--primary {
+  color: #121212;
+  background: #64b5f6;
+  border-color: #64b5f6;
+  font-weight: 600;
 }
 
-@keyframes code-cursor {
-  0%, 100% {
-    border-color: #64b5f6;
-  }
-  50% {
-    border-color: transparent;
-  }
+.project-btn--primary:hover {
+  color: #121212;
+  background: #90caf9;
+  border-color: #90caf9;
 }
 
 h2 {
