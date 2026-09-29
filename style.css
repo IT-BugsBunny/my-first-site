@@ -55,11 +55,65 @@ h1 {
   color: #ffffff;
   font-size: 16px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-card h3 svg {
+  color: #64b5f6;
+  flex-shrink: 0;
 }
 
 .project-card p {
   color: #cccccc;
   margin-bottom: 12px;
+}
+
+.projects-category {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin: 18px 0 10px;
+}
+
+.project-card--placeholder {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.project-card--placeholder .code-typing {
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  color: #cccccc;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #64b5f6;
+  width: 0;
+  animation: code-typing 4s steps(28, end) infinite, code-cursor 0.75s step-end infinite;
+}
+
+@keyframes code-typing {
+  0%, 8% {
+    width: 0;
+  }
+  45%, 65% {
+    width: 28ch;
+  }
+  90%, 100% {
+    width: 0;
+  }
+}
+
+@keyframes code-cursor {
+  0%, 100% {
+    border-color: #64b5f6;
+  }
+  50% {
+    border-color: transparent;
+  }
 }
 
 h2 {
