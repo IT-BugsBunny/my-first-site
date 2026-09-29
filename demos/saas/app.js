@@ -7,10 +7,6 @@
   const preview = document.getElementById("flag-preview");
   const badge = document.getElementById("flag-badge");
   const flagCopy = document.getElementById("flag-copy");
-  const cmd = document.getElementById("cmd");
-  const cmdOpen = document.getElementById("cmd-open");
-  const cmdInput = document.getElementById("cmd-input");
-  const cmdList = [...document.querySelectorAll("#cmd-list li")];
   const proPrice = document.getElementById("pro-price");
 
   for (let i = 0; i < 16; i += 1) {
@@ -108,71 +104,5 @@
         : proPrice.dataset.priceMonthly;
       proPrice.textContent = Number(value).toLocaleString("ru-RU");
     });
-  });
-
-  function openCmd() {
-    cmd.hidden = false;
-    cmdInput.value = "";
-    cmdInput.focus();
-    setActive(0);
-  }
-
-  function closeCmd() {
-    cmd.hidden = true;
-  }
-
-  function setActive(index) {
-    cmdList.forEach((li, i) => li.classList.toggle("is-active", i === index));
-  }
-
-  function go(href) {
-    closeCmd();
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  }
-
-  cmdOpen.addEventListener("click", openCmd);
-  cmd.addEventListener("click", (e) => {
-    if (e.target === cmd) closeCmd();
-  });
-  cmdList.forEach((li, i) => {
-    li.addEventListener("click", () => go(li.dataset.href));
-    li.addEventListener("mouseenter", () => setActive(i));
-  });
-
-  window.addEventListener("keydown", (e) => {
-    const metaK = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k";
-    if (metaK) {
-      e.preventDefault();
-      if (cmd.hidden) openCmd();
-      else closeCmd();
-      return;
-    }
-    if (cmd.hidden) return;
-    if (e.key === "Escape") closeCmd();
-    if (e.key === "Enter") {
-      const active = cmdList.find((li) => li.classList.contains("is-active"));
-      if (active) go(active.dataset.href);
-    }
-    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-      e.preventDefault();
-      const idx = cmdList.findIndex((li) => li.classList.contains("is-active"));
-      const next =
-        e.key === "ArrowDown"
-          ? (idx + 1) % cmdList.length
-          : (idx - 1 + cmdList.length) % cmdList.length;
-      setActive(next);
-    }
-  });
-
-  cmdInput.addEventListener("input", () => {
-    const q = cmdInput.value.trim().toLowerCase();
-    let first = -1;
-    cmdList.forEach((li, i) => {
-      const show = !q || li.textContent.toLowerCase().includes(q);
-      li.hidden = !show;
-      if (show && first < 0) first = i;
-    });
-    if (first >= 0) setActive(first);
   });
 })();

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPEN STAGE — онлайн-вебинар</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="back-to-portfolio" href="../../index.html">← Назад в портфолио</a>
+
+  <header class="topbar">
+    <a class="logo" href="#top">OPEN STAGE</a>
+    <nav class="topbar__nav">
+      <a href="#agenda">Программа</a>
+      <a href="#register">Регистрация</a>
+    </nav>
+    <a class="btn-sm" href="#register">Занять место</a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img
+        class="hero__shot"
+        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1800&q=80"
+        alt="Сцена онлайн-конференции"
+        width="1800"
+        height="1200"
+      >
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <p class="hero__brand">OPEN STAGE</p>
+        <h1>Как запускать продукт, когда рынок уже шумный</h1>
+        <p class="hero__lead">Бесплатный live-вебинар для фаундеров и маркетологов. 90 минут практики, без воды.</p>
+
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="countdown__item"><strong id="cd-days">00</strong><span>дней</span></div>
+          <div class="countdown__item"><strong id="cd-hours">00</strong><span>часов</span></div>
+          <div class="countdown__item"><strong id="cd-mins">00</strong><span>минут</span></div>
+          <div class="countdown__item"><strong id="cd-secs">00</strong><span>секунд</span></div>
+        </div>
+        <p class="hero__meta">Старт: <time id="event-date" datetime="">—</time> · MSK · осталось <strong id="seats">47</strong> мест</p>
+        <a class="btn-primary" href="#register">Зарегистрироваться</a>
+      </div>
+    </section>
+
+    <section class="agenda" id="agenda">
+      <div class="agenda__head">
+        <p class="eyebrow">Программа</p>
+        <h2>90 минут по таймингу</h2>
+        <p>Каждый блок — конкретный артефакт, который унесёте с собой.</p>
+      </div>
+
+      <ol class="timeline">
+        <li>
+          <time>19:00</time>
+          <div>
+            <h3>Интро: карта шума</h3>
+            <p>Как отличить сигнал от тренда и не распылить бюджет.</p>
+          </div>
+        </li>
+        <li>
+          <time>19:20</time>
+          <div>
+            <h3>Позиционирование за один слайд</h3>
+            <p>Шаблон: аудитория → боль → обещание → доказательство.</p>
+          </div>
+        </li>
+        <li>
+          <time>19:45</time>
+          <div>
+            <h3>Каналы без FOMO</h3>
+            <p>Выбор 2 каналов на квартал и метрики «стоп/масштаб».</p>
+          </div>
+        </li>
+        <li>
+          <time>20:10</time>
+          <div>
+            <h3>Live Q&amp;A</h3>
+            <p>Разбор ваших кейсов в чате. Запись придёт на почту.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="speaker">
+      <div class="speaker__layout">
+        <img
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
+          alt="Спикер Анна Котова"
+          width="800"
+          height="1000"
+          loading="lazy"
+        >
+        <div>
+          <p class="eyebrow">Спикер</p>
+          <h2>Анна Котова</h2>
+          <p>CMO в B2B SaaS, 11 лет в growth. Запускала 4 продукта с нуля до первых $1M ARR.</p>
+          <ul>
+            <li>Экс-Head of Growth @ Fintech</li>
+            <li>Автор курса «Go-to-market без хайпа»</li>
+            <li>Спикер ProductSense / HolyJS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="register" id="register">
+      <div class="register__layout">
+        <div class="register__intro">
+          <p class="eyebrow">Регистрация</p>
+          <h2>Забронируйте место</h2>
+          <p>Ссылка на эфир и календарь (.ics) придут сразу после подтверждения.</p>
+          <ul class="perks">
+            <li>Запись на 14 дней</li>
+            <li>Шаблон позиционирования PDF</li>
+            <li>Чеклист каналов</li>
+          </ul>
+        </div>
+
+        <form class="form" id="reg-form" novalidate>
+          <div class="field">
+            <label for="name">Имя</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required minlength="2">
+            <p class="field__error" data-error-for="name" hidden></p>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+            <p class="field__error" data-error-for="email" hidden></p>
+          </div>
+          <div class="field">
+            <label for="role">Роль <span class="optional">необязательно</span></label>
+            <input id="role" name="role" type="text" placeholder="Founder, CMO, Product…">
+          </div>
+          <div class="field field--check">
+            <label>
+              <input id="consent" name="consent" type="checkbox" required>
+              <span>Согласен(на) на письмо со ссылкой и материалами вебинара</span>
+            </label>
+            <p class="field__error" data-error-for="consent" hidden></p>
+          </div>
+          <button class="btn-primary btn-primary--wide" type="submit">Зарегистрироваться</button>
+          <p class="form__note">Без спама. Только эфир и материалы.</p>
+          <p class="form__success" id="form-success" hidden>Готово! Проверьте почту — письмо уже в пути.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>OPEN STAGE · демо лендинга события</p>
+    <a href="#register">Регистрация</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
