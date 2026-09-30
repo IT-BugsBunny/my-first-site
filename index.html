@@ -9,29 +9,38 @@
 <body>
   <div class="container">
     <header class="page-header">
-      <img src="photo.jpg" alt="Фото" class="avatar">
-      <h1>Привет, меня зовут Антон</h1>
-      <p class="subtitle">Изучаю веб-разработку с помощью ИИ</p>
+      <div class="lang-switch" role="group" aria-label="Language / Язык">
+        <button type="button" class="lang-btn is-active" data-set-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" class="lang-btn" data-set-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <img src="photo.jpg" alt="Фото" class="avatar" data-i18n-alt="photoAlt">
+      <h1 data-i18n="hello">Привет, меня зовут Антон</h1>
+      <p class="subtitle" data-i18n="subtitle">Изучаю веб-разработку с помощью ИИ</p>
 
       <div class="skills">
-        <h2>Мои навыки</h2>
+        <h2 data-i18n="skillsTitle">Мои навыки</h2>
         <ul>
-          <li>Linux / администрирование серверов</li>
-          <li>HTML / CSS / JavaScript — в процессе изучения</li>
-          <li>Работа с ИИ-инструментами</li>
+          <li data-i18n="skill1">Linux / администрирование серверов</li>
+          <li data-i18n="skill2">HTML / CSS / JavaScript</li>
+          <li data-i18n="skill3">Работа с ИИ-инструментами</li>
         </ul>
+      </div>
+
+      <div class="price-links">
+        <a class="social-link" href="files/price-list-landings-ru.pdf" target="_blank" rel="noopener noreferrer">Прайс</a>
+        <a class="social-link" href="files/price-list-landings-en.pdf" target="_blank" rel="noopener noreferrer">Price</a>
       </div>
     </header>
 
     <div class="page-scroll" id="page-scroll">
       <div class="projects">
         <div class="projects-head" id="projects-head">
-          <h2>Портфолио</h2>
-          <p class="projects-intro">Живые демо в отдельной вкладке. Внутри каждой страницы — краткая инструкция, что нажать и что должно произойти.</p>
+          <h2 data-i18n="portfolioTitle">Портфолио</h2>
+          <p class="projects-intro" data-i18n="portfolioIntro">Живые демо в отдельной вкладке. Внутри каждой страницы — краткая инструкция, что нажать и что должно произойти.</p>
         </div>
 
         <section class="project-block">
-          <h3 class="projects-category">Веб-разработка</h3>
+          <h3 class="projects-category" data-i18n="catWeb">Веб-разработка</h3>
           <article class="project-card">
             <h3>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -39,7 +48,7 @@
               </svg>
               my-first-site
             </h3>
-            <p>Личная визитка на HTML/CSS: навыки, портфолио и контакты. Эта страница и есть демо.</p>
+            <p data-i18n="projSiteDesc">Личная визитка на HTML/CSS: навыки, портфолио и контакты. Эта страница и есть демо.</p>
             <div class="project-tags">
               <span>HTML</span>
               <span>CSS</span>
@@ -63,7 +72,7 @@
               </svg>
               Command Deck
             </h3>
-            <p>Терминал в браузере. Как проверить: откройте Demo → введите <code>help</code> → Enter; дальше <code>neofetch</code>, <code>skills</code>, <code>clear</code>.</p>
+            <p data-i18n="projDeckDesc" data-i18n-html="true">Терминал в браузере. Как проверить: откройте Demo → введите <code>help</code> → Enter; дальше <code>neofetch</code>, <code>skills</code>, <code>clear</code>.</p>
             <div class="project-tags">
               <span>JavaScript</span>
               <span>CLI UX</span>
@@ -87,7 +96,7 @@
               </svg>
               Password Forge
             </h3>
-            <p>Генератор паролей. Как проверить: ползунок длины, галочки A–Z / a–z / цифры / символы, кнопки Generate и Copy.</p>
+            <p data-i18n="projPassDesc">Генератор паролей. Как проверить: ползунок длины, галочки A–Z / a–z / цифры / символы, кнопки Generate и Copy.</p>
             <div class="project-tags">
               <span>JavaScript</span>
               <span>UX tool</span>
@@ -111,7 +120,7 @@
               </svg>
               Launchbay
             </h3>
-            <p>Мини-лендинг SaaS. Как проверить: «К форме» → введите email → Get early access — появится подтверждение без сервера.</p>
+            <p data-i18n="projLaunchDesc">Мини-лендинг SaaS. Как проверить: «К форме» → введите email → Get early access — появится подтверждение без сервера.</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>Brand UI</span>
@@ -133,9 +142,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2C8.5 2 6 4.8 6 8.2c0 4.4 5.1 10.5 5.3 10.8l.7.8.7-.8C12.9 18.7 18 12.6 18 8.2 18 4.8 15.5 2 12 2zm0 10a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/>
               </svg>
-              Terra — ресторан
+              <span data-i18n="projTerraTitle">Terra — ресторан</span>
             </h3>
-            <p>Лендинг итальянского ресторана: меню с фото, галерея, бронь стола. Как проверить: Demo → форма брони → «Отправить заявку».</p>
+            <p data-i18n="projTerraDesc">Лендинг итальянского ресторана: меню с фото, галерея, бронь стола. Как проверить: Demo → форма брони → «Отправить заявку».</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>HTML/CSS</span>
@@ -157,9 +166,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M19 3H5a2 2 0 00-2 2v14l4-2h12a2 2 0 002-2V5a2 2 0 00-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2z"/>
               </svg>
-              Чистый Дом — услуги
+              <span data-i18n="projCleanTitle">Чистый Дом — услуги</span>
             </h3>
-            <p>Универсальный лендинг услуг (клининг): сетка с ценами, отзывы, заявка, звонок/WhatsApp. Как проверить: Demo → форма → «Отправить заявку».</p>
+            <p data-i18n="projCleanDesc">Универсальный лендинг услуг (клининг): сетка с ценами, отзывы, заявка, звонок/WhatsApp. Как проверить: Demo → форма → «Отправить заявку».</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>Services</span>
@@ -181,9 +190,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 17.8 14 21 14v-2c-2.5 0-4.7-1.4-5.7-3.4l-1.1-2.1c-.4-.7-1.1-1.2-1.9-1.2-.3 0-.6.1-.9.2L6 9.3V13h2V10.6l1.8-1.7z"/>
               </svg>
-              MIRA VOLK — тренер
+              <span data-i18n="projCoachTitle">MIRA VOLK — тренер</span>
             </h3>
-            <p>Лендинг коуча: dark editorial, блок «Обо мне», тарифы, CTA в WhatsApp. Как проверить: Demo → «Записаться на пробную».</p>
+            <p data-i18n="projCoachDesc">Лендинг коуча: dark editorial, блок «Обо мне», тарифы, CTA в WhatsApp. Как проверить: Demo → «Записаться на пробную».</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>Coach</span>
@@ -205,9 +214,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.2 14h9.5c.8 0 1.5-.5 1.7-1.2L21 5H5.2L4.3 2H1v2h2l3.6 7.6L5.2 14c-.4.8.2 1.7 1.1 1.8.1 0 .2 0 .3 0H19v-2H7.4l.8-1.5zM5.5 5h13.1l-1.9 6H8.5L5.5 5z"/>
               </svg>
-              LUMI — магазин
+              <span data-i18n="projShopTitle">LUMI — магазин</span>
             </h3>
-            <p>Яркий одностраничный магазин: сетка цветов, мини-корзина, форма заказа, таймер и соцдоказательства. Как проверить: Demo → «Купить» → корзина → оформить.</p>
+            <p data-i18n="projShopDesc">Яркий одностраничный магазин: сетка цветов, мини-корзина, форма заказа, таймер и соцдоказательства. Как проверить: Demo → «Купить» → корзина → оформить.</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>E-commerce</span>
@@ -229,9 +238,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 3l9 7v11h-6v-6H9v6H3V10l9-7zm0 2.2L5 10.5V19h2v-6h10v6h2v-8.5L12 5.2z"/>
               </svg>
-              KONTUR — недвижимость
+              <span data-i18n="projRealtyTitle">KONTUR — недвижимость</span>
             </h3>
-            <p>Proptech-каталог: сетка объектов, живые фильтры по комнатам/цене, заявка на просмотр. Как проверить: Demo → фильтры → «Записаться на просмотр».</p>
+            <p data-i18n="projRealtyDesc">Proptech-каталог: сетка объектов, живые фильтры по комнатам/цене, заявка на просмотр. Как проверить: Demo → фильтры → «Записаться на просмотр».</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>Realty</span>
@@ -253,9 +262,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2l2.4 4.8L20 8l-3.8 3.7L17 18l-5-2.6L7 18l.8-6.3L4 8l5.6-1.2L12 2z"/>
               </svg>
-              RIVET — SaaS
+              <span data-i18n="projSaasTitle">RIVET — SaaS</span>
             </h3>
-            <p>Dev-platform лендинг: терминал с typing-demo, live-метрики, feature flag и тарифы Free/Pro/Enterprise. Как проверить: Demo → флаг → Pricing → Yearly.</p>
+            <p data-i18n="projSaasDesc">Dev-platform лендинг: терминал с typing-demo, live-метрики, feature flag и тарифы Free/Pro/Enterprise. Как проверить: Demo → флаг → Pricing → Yearly.</p>
             <div class="project-tags">
               <span>SaaS</span>
               <span>DevTools</span>
@@ -277,9 +286,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.2-.9-2-2-2zm0 16H5V10h14v10zm-7-2h5v-5h-5v5z"/>
               </svg>
-              OPEN STAGE — вебинар
+              <span data-i18n="projEventTitle">OPEN STAGE — вебинар</span>
             </h3>
-            <p>Лендинг события: живой countdown до старта, программа по таймингу, валидация регистрации (имя, email, согласие). Как проверить: Demo → таймер → «Регистрация» → отправить с ошибками и с валидными данными.</p>
+            <p data-i18n="projEventDesc">Лендинг события: живой countdown до старта, программа по таймингу, валидация регистрации (имя, email, согласие). Как проверить: Demo → таймер → «Регистрация» → отправить с ошибками и с валидными данными.</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>Event</span>
@@ -301,9 +310,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 13l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm0 12c-1.1 0-2-.89-2-2s.9-2 2-2 2 .89 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM20 3l-1.5 1.5L20 6l1.5-1.5L20 3z"/>
               </svg>
-              FORM — барбершоп
+              <span data-i18n="projBarberTitle">FORM — барбершоп</span>
             </h3>
-            <p>Лендинг барбершопа: прайс, до/после слайдер, календарь записи. Как проверить: Demo → «Работы» (ползунок) → день в календаре → слот → «Подтвердить запись».</p>
+            <p data-i18n="projBarberDesc">Лендинг барбершопа: прайс, до/после слайдер, календарь записи. Как проверить: Demo → «Работы» (ползунок) → день в календаре → слот → «Подтвердить запись».</p>
             <div class="project-tags">
               <span>Landing</span>
               <span>Barber</span>
@@ -322,7 +331,7 @@
         </section>
 
         <section class="project-block">
-          <h3 class="projects-category">DevOps и администрирование</h3>
+          <h3 class="projects-category" data-i18n="catDevops">DevOps и администрирование</h3>
           <article class="project-card">
             <h3>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -330,7 +339,7 @@
               </svg>
               Server Pulse
             </h3>
-            <p>Панель мониторинга. Как проверить: подождите 1–2 сек — метрики и лог обновятся сами, worker-queue может сменить статус.</p>
+            <p data-i18n="projPulseDesc">Панель мониторинга. Как проверить: подождите 1–2 сек — метрики и лог обновятся сами, worker-queue может сменить статус.</p>
             <div class="project-tags">
               <span>Ops UI</span>
               <span>Metrics</span>
@@ -350,7 +359,7 @@
       </div>
 
       <section class="contact project-block">
-        <h2 class="projects-category contact-title">Связаться со мной</h2>
+        <h2 class="projects-category contact-title" data-i18n="contactTitle">Связаться со мной</h2>
         <a href="mailto:Anton.Kraynik@gmail.com" class="social-link">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
