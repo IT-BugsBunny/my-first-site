@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Fleet</title>
+  <style>
+    :root {
+      --bg: #161b22;
+      --card: #1c2330;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --running: #3fb950;
+      --stopped: #8b949e;
+      --restarting: #d29922;
+      --ram: #58a6ff;
+      --log: #0d1117;
+      --danger: #f85149;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 420px at 80% -10%, rgba(88, 166, 255, 0.08), transparent 50%),
+        radial-gradient(700px 380px at 0% 0%, rgba(63, 185, 80, 0.07), transparent 46%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    .app {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+
+    header { margin-bottom: 28px; }
+
+    .brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .mark {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      border-radius: 12px;
+      background: #21262d;
+      border: 1px solid var(--border);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .lead {
+      margin: 8px 0 0;
+      max-width: 40em;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(13, 17, 23, 0.45);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill strong { color: var(--text); font-weight: 600; }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--stopped);
+      flex-shrink: 0;
+    }
+
+    .dot--running { background: var(--running); }
+    .dot--restarting { background: var(--restarting); }
+
+    .hint {
+      margin: 14px 0 0;
+      max-width: 46em;
+      color: #6e7681;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 760px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card[data-status="running"] {
+      box-shadow: inset 3px 0 0 var(--running);
+    }
+
+    .card[data-status="restarting"] {
+      border-color: rgba(210, 153, 34, 0.65);
+      box-shadow: inset 3px 0 0 var(--restarting);
+    }
+
+    .card[data-status="stopped"] {
+      box-shadow: inset 3px 0 0 #484f58;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .identity {
+      display: flex;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .emoji {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      border-radius: 10px;
+      background: #0d1117;
+      border: 1px solid var(--border);
+    }
+
+    .name {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .role {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: lowercase;
+      padding-top: 4px;
+    }
+
+    .card[data-status="running"] .status { color: var(--running); }
+    .card[data-status="restarting"] .status { color: var(--restarting); }
+    .card[data-status="stopped"] .status { color: var(--stopped); }
+
+    .card[data-status="running"] .status .dot {
+      background: var(--running);
+      box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.55);
+      animation: pulse 1.8s ease-out infinite;
+    }
+
+    .card[data-status="restarting"] .status .dot { background: var(--restarting); }
+    .card[data-status="stopped"] .status .dot { background: var(--stopped); }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.55); }
+      70% { box-shadow: 0 0 0 7px rgba(63, 185, 80, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .metric-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .metric-label b {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+    }
+
+    .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 42px;
+      padding: 0 2px;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .bars i {
+      display: block;
+      flex: 1;
+      height: 0;
+      min-height: 0;
+      border-radius: 3px 3px 0 0;
+      background: var(--running);
+      opacity: 0.9;
+      transition: height 0.7s ease;
+    }
+
+    .bars--ram i { background: var(--ram); }
+
+    .card[data-status="stopped"] .bars i {
+      height: 0 !important;
+      background: #484f58;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0d1117;
+      color: var(--text);
+      padding: 8px 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    button:hover:not(:disabled) { border-color: #6e7681; }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-start:not(:disabled) { color: var(--running); border-color: rgba(63, 185, 80, 0.45); }
+    .btn-stop:not(:disabled) { color: #ff7b72; border-color: rgba(248, 81, 73, 0.4); }
+    .btn-restart:not(:disabled) { color: var(--restarting); border-color: rgba(210, 153, 34, 0.5); }
+
+    .btn-logs {
+      width: 100%;
+      color: var(--muted);
+    }
+
+    .btn-logs:hover { color: var(--text); }
+
+    dialog {
+      width: min(560px, calc(100vw - 32px));
+      padding: 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      color: var(--text);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    dialog::backdrop {
+      background: rgba(1, 4, 9, 0.72);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .modal-head p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .close {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .log {
+      margin: 0;
+      padding: 14px 16px 18px;
+      background: var(--log);
+      border-radius: 0 0 14px 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #c9d1d9;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .log .ts { color: #6e7681; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bars i,
+      .card { transition: none; }
+      .card[data-status="running"] .status .dot { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="mark" aria-hidden="true">🐳</div>
+        <div>
+          <h1>Docker Fleet</h1>
+          <p class="lead">Панель управления контейнерами — демо-имитация Docker-инфраструктуры</p>
+        </div>
+      </div>
+      <div class="summary" aria-live="polite">
+        <span class="pill"><span class="dot dot--running"></span> running <strong id="count-running">0</strong></span>
+        <span class="pill"><span class="dot"></span> stopped <strong id="count-stopped">0</strong></span>
+        <span class="pill"><span class="dot dot--restarting"></span> restarting <strong id="count-restarting">0</strong></span>
+      </div>
+      <p class="hint">Как проверить: redis уже stopped — нажмите Start (зелёная точка примерно через полсекунды). Restart на секунду показывает жёлтый статус. Logs открывает пример строк этого сервиса.</p>
+    </header>
+
+    <main class="grid" id="grid"></main>
+  </div>
+
+  <dialog id="logs-dialog">
+    <div class="modal-head">
+      <div>
+        <h2 id="logs-title">logs</h2>
+        <p id="logs-sub">stdout</p>
+      </div>
+      <button type="button" class="close" id="logs-close" aria-label="Закрыть">×</button>
+    </div>
+    <pre class="log" id="logs-body"></pre>
+  </dialog>
+
+  <script>
+    const SERVICES = [
+      {
+        id: "nginx",
+        name: "nginx",
+        role: "веб-сервер",
+        emoji: "🌐",
+        image: "nginx:1.27-alpine",
+        port: "80/tcp",
+        status: "running",
+        logs: [
+          "192.168.1.5 - GET /api/users 200",
+          "10.0.4.18 - GET / 200",
+          "192.168.1.22 - POST /api/login 302",
+          "172.18.0.3 - GET /static/app.css 200"
+        ]
+      },
+      {
+        id: "app",
+        name: "app",
+        role: "приложение",
+        emoji: "⚙️",
+        image: "fleet-app:1.4.2",
+        port: "8080/tcp",
+        status: "running",
+        logs: [
+          "INFO  listening on 0.0.0.0:8080",
+          "INFO  connected to postgres db=fleet",
+          "INFO  GET /health 200 1.8ms",
+          "WARN  cache miss key=session:9f2"
+        ]
+      },
+      {
+        id: "postgres",
+        name: "postgres",
+        role: "база данных",
+        emoji: "🐘",
+        image: "postgres:16-alpine",
+        port: "5432/tcp",
+        status: "running",
+        logs: [
+          "LOG:  connection received: host=10.0.0.8 port=54321",
+          "LOG:  connection authorized: user=app database=fleet",
+          "LOG:  checkpoint complete: wrote 12 buffers",
+          "LOG:  duration: 3.214 ms  statement: SELECT id FROM users"
+        ]
+      },
+      {
+        id: "redis",
+        name: "redis",
+        role: "кэш",
+        emoji: "⚡",
+        image: "redis:7.2-alpine",
+        port: "6379/tcp",
+        status: "stopped",
+        logs: [
+          "* Ready to accept connections",
+          "* Background saving started by pid 42",
+          "* DB saved on disk",
+          "* Accepted 10.0.0.8:48122"
+        ]
+      }
+    ];
+
+    const state = {};
+    const grid = document.getElementById("grid");
+    const dialog = document.getElementById("logs-dialog");
+
+    function barsMarkup(kind) {
+      return `<div class="bars bars--${kind}" data-bars="${kind}">${"<i></i>".repeat(8)}</div>`;
+    }
+
+    function renderCards() {
+      grid.innerHTML = SERVICES.map((svc) => `
+        <article class="card" data-id="${svc.id}" data-status="${svc.status}">
+          <div class="card-head">
+            <div class="identity">
+              <div class="emoji" aria-hidden="true">${svc.emoji}</div>
+              <div>
+                <h2 class="name">${svc.name}</h2>
+                <p class="role">${svc.role} · ${svc.image} · ${svc.port}</p>
+              </div>
+            </div>
+            <div class="status"><span class="dot"></span><span data-status-label>${svc.status}</span></div>
+          </div>
+          <div class="metrics">
+            <div>
+              <div class="metric-label"><span>CPU</span><b data-cpu>0%</b></div>
+              ${barsMarkup("cpu")}
+            </div>
+            <div>
+              <div class="metric-label"><span>RAM</span><b data-ram>0%</b></div>
+              ${barsMarkup("ram")}
+            </div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn-start" data-action="start">Start</button>
+            <button type="button" class="btn-stop" data-action="stop">Stop</button>
+            <button type="button" class="btn-restart" data-action="restart">Restart</button>
+          </div>
+          <button type="button" class="btn-logs" data-action="logs">Logs</button>
+        </article>
+      `).join("");
+    }
+
+    function cardOf(id) {
+      return grid.querySelector(`[data-id="${id}"]`);
+    }
+
+    function setBarHeights(card, kind, values) {
+      const bars = card.querySelector(`[data-bars="${kind}"]`).children;
+      values.forEach((value, index) => {
+        bars[index].style.height = `${value}%`;
+      });
+    }
+
+    function randomSeries() {
+      const values = Array.from({ length: 8 }, () => 12 + Math.round(Math.random() * 78));
+      const avg = Math.round(values.reduce((sum, n) => sum + n, 0) / values.length);
+      return { values, avg };
+    }
+
+    function paintLive(id) {
+      const card = cardOf(id);
+      const cpu = randomSeries();
+      const ram = randomSeries();
+      setBarHeights(card, "cpu", cpu.values);
+      setBarHeights(card, "ram", ram.values);
+      card.querySelector("[data-cpu]").textContent = `${cpu.avg}%`;
+      card.querySelector("[data-ram]").textContent = `${ram.avg}%`;
+    }
+
+    function paintZero(id) {
+      const card = cardOf(id);
+      setBarHeights(card, "cpu", Array(8).fill(0));
+      setBarHeights(card, "ram", Array(8).fill(0));
+      card.querySelector("[data-cpu]").textContent = "0%";
+      card.querySelector("[data-ram]").textContent = "0%";
+    }
+
+    function clearMetricTimer(id) {
+      clearTimeout(state[id].metricTimer);
+      state[id].metricTimer = null;
+    }
+
+    function scheduleMetrics(id) {
+      clearMetricTimer(id);
+      const wait = 2000 + Math.random() * 1000;
+      state[id].metricTimer = setTimeout(() => {
+        if (state[id].status !== "running") return;
+        paintLive(id);
+        scheduleMetrics(id);
+      }, wait);
+    }
+
+    function updateButtons(id) {
+      const card = cardOf(id);
+      const status = state[id].status;
+      const busy = state[id].busy;
+      card.querySelector('[data-action="start"]').disabled = busy || status !== "stopped";
+      card.querySelector('[data-action="stop"]').disabled = busy || status !== "running";
+      card.querySelector('[data-action="restart"]').disabled = busy;
+    }
+
+    function updateSummary() {
+      const counts = { running: 0, stopped: 0, restarting: 0 };
+      Object.values(state).forEach((item) => { counts[item.status] += 1; });
+      document.getElementById("count-running").textContent = counts.running;
+      document.getElementById("count-stopped").textContent = counts.stopped;
+      document.getElementById("count-restarting").textContent = counts.restarting;
+    }
+
+    function applyStatus(id, status) {
+      const card = cardOf(id);
+      state[id].status = status;
+      card.dataset.status = status;
+      card.querySelector("[data-status-label]").textContent = status;
+      updateButtons(id);
+      updateSummary();
+    }
+
+    function startContainer(id) {
+      if (state[id].busy || state[id].status !== "stopped") return;
+      state[id].busy = true;
+      updateButtons(id);
+      state[id].actionTimer = setTimeout(() => {
+        state[id].busy = false;
+        applyStatus(id, "running");
+        paintLive(id);
+        scheduleMetrics(id);
+      }, 500);
+    }
+
+    function stopContainer(id) {
+      if (state[id].busy || state[id].status !== "running") return;
+      clearTimeout(state[id].actionTimer);
+      clearMetricTimer(id);
+      applyStatus(id, "stopped");
+      paintZero(id);
+    }
+
+    function restartContainer(id) {
+      if (state[id].busy) return;
+      clearTimeout(state[id].actionTimer);
+      clearMetricTimer(id);
+      state[id].busy = true;
+      applyStatus(id, "restarting");
+      state[id].actionTimer = setTimeout(() => {
+        state[id].busy = false;
+        applyStatus(id, "running");
+        paintLive(id);
+        scheduleMetrics(id);
+      }, 1000);
+    }
+
+    function stamp(secondsAgo) {
+      const date = new Date(Date.now() - secondsAgo * 1000);
+      return date.toISOString().slice(11, 19);
+    }
+
+    function openLogs(id) {
+      const svc = SERVICES.find((item) => item.id === id);
+      document.getElementById("logs-title").textContent = `${svc.name} · logs`;
+      document.getElementById("logs-sub").textContent = `${svc.image} · stdout`;
+      const lines = svc.logs.map((line, index) => {
+        const ago = (svc.logs.length - index) * 4;
+        return `<span class="ts">${stamp(ago)}</span>  ${line}`;
+      });
+      document.getElementById("logs-body").innerHTML = lines.join("\n");
+      dialog.showModal();
+    }
+
+    renderCards();
+
+    SERVICES.forEach((svc) => {
+      state[svc.id] = { status: svc.status, busy: false, metricTimer: null, actionTimer: null };
+      if (svc.status === "running") {
+        paintLive(svc.id);
+        scheduleMetrics(svc.id);
+      } else {
+        paintZero(svc.id);
+      }
+      updateButtons(svc.id);
+    });
+    updateSummary();
+
+    grid.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-action]");
+      if (!button) return;
+      const id = button.closest(".card").dataset.id;
+      const action = button.dataset.action;
+      if (action === "start") startContainer(id);
+      if (action === "stop") stopContainer(id);
+      if (action === "restart") restartContainer(id);
+      if (action === "logs") openLogs(id);
+    });
+
+    document.getElementById("logs-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  </script>
+</body>
+</html>

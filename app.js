@@ -51,6 +51,8 @@
         "Панель мониторинга. Как проверить: подождите 1–2 сек — метрики и лог обновятся сами, worker-queue может сменить статус.",
       projPipeDesc:
         "Симуляция CI/CD: сборка, тесты, деплой и прод. Как проверить: Demo → «Запустить деплой» — этапы идут по очереди, лог пишется построчно; примерно каждый пятый запуск падает на Test.",
+      projFleetDesc:
+        "Панель управления контейнерами. Как проверить: Demo → redis уже stopped → Start (зелёная точка ~0.5 с); Restart — жёлтый статус на секунду; Logs — строки лога сервиса.",
     },
     en: {
       pageTitle: "About me",
@@ -103,6 +105,8 @@
         "Monitoring panel. Try: wait 1–2 sec — metrics and log update on their own; worker-queue may change status.",
       projPipeDesc:
         "CI/CD simulation: build, tests, deploy, and production. Try: Demo → Run deploy — stages advance in order and the log fills line by line; about one run in five fails at Test.",
+      projFleetDesc:
+        "Container control panel. Try: Demo → redis starts stopped → Start (green dot after ~0.5s); Restart shows yellow for a second; Logs opens sample lines for that service.",
     },
   };
 
