@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backup Vault</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --surface-2: #212c3d;
+      --border: #2d3a4d;
+      --text: #e7edf4;
+      --muted: #8b9cb3;
+      --accent: #58a6ff;
+      --accent-dim: rgba(88, 166, 255, 0.16);
+      --ok: #3fb950;
+      --ok-dim: rgba(63, 185, 80, 0.14);
+      --err: #f85149;
+      --err-dim: rgba(248, 81, 73, 0.14);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 420px at 50% -8%, rgba(88, 166, 255, 0.14), transparent 55%),
+        radial-gradient(700px 380px at 100% 100%, rgba(63, 185, 80, 0.06), transparent 46%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    .app {
+      width: min(880px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 72px;
+    }
+
+    header { text-align: center; }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(88, 166, 255, 0.35);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 44px);
+      letter-spacing: -0.03em;
+      font-weight: 680;
+    }
+
+    .lead {
+      margin: 14px auto 0;
+      max-width: 34em;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .run {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 28px 0 36px;
+      gap: 16px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .btn-run {
+      min-width: min(100%, 280px);
+      padding: 14px 22px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #041018;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      box-shadow: 0 8px 24px rgba(88, 166, 255, 0.28);
+    }
+
+    .btn-run:hover:not(:disabled) { filter: brightness(1.08); }
+
+    .btn-run:disabled {
+      cursor: progress;
+      opacity: 0.55;
+      box-shadow: none;
+    }
+
+    .progress-panel {
+      width: min(100%, 420px);
+    }
+
+    .progress-panel[hidden] { display: none; }
+
+    .progress-track {
+      height: 10px;
+      border-radius: 999px;
+      background: #0b1016;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #1f6feb, var(--accent));
+    }
+
+    .progress-label {
+      margin: 10px 0 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 1.3em;
+    }
+
+    .progress-label.is-done { color: var(--ok); font-weight: 650; }
+
+    section h2 {
+      margin: 0 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .history {
+      list-style: none;
+      margin: 0 0 40px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .backup {
+      display: grid;
+      grid-template-columns: 1.5fr 0.7fr 0.9fr auto;
+      gap: 12px 16px;
+      align-items: center;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .backup.is-new { animation: rise 0.35s ease; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .when {
+      font-variant-numeric: tabular-nums;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 14px;
+    }
+
+    .size { color: var(--muted); }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .status.ok {
+      color: var(--ok);
+      background: var(--ok-dim);
+    }
+
+    .status.err {
+      color: var(--err);
+      background: var(--err-dim);
+    }
+
+    .btn-restore {
+      justify-self: end;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(88, 166, 255, 0.55);
+      background: transparent;
+      color: var(--accent);
+      font-weight: 650;
+    }
+
+    .btn-restore:hover:not(:disabled) { background: var(--accent-dim); }
+
+    .btn-restore:disabled {
+      cursor: not-allowed;
+      opacity: 0.38;
+      border-color: var(--border);
+      color: var(--muted);
+    }
+
+    .schedule-note {
+      margin: -6px 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .schedule-note strong { color: var(--text); font-weight: 650; }
+
+    .timeline-scroll {
+      overflow-x: auto;
+      padding-bottom: 6px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(130px, 1fr));
+      min-width: 560px;
+      margin: 0;
+      padding: 8px 0 4px;
+      list-style: none;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 22px;
+      height: 2px;
+      background: var(--border);
+    }
+
+    .slot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .slot-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid #4a5d75;
+      box-shadow: 0 0 0 6px var(--bg);
+    }
+
+    .slot.is-nearest .slot-dot {
+      width: 18px;
+      height: 18px;
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: 0 0 0 6px var(--bg), 0 0 0 10px var(--accent-dim);
+    }
+
+    .slot-time {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 15px;
+    }
+
+    .slot-badge {
+      min-height: 22px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: transparent;
+    }
+
+    .slot.is-nearest .slot-badge {
+      color: #041018;
+      background: var(--accent);
+      font-weight: 700;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal[hidden] { display: none; }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 8, 12, 0.72);
+    }
+
+    .modal-card {
+      position: relative;
+      width: min(440px, 100%);
+      padding: 22px 22px 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .modal-text {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .modal-progress { margin-bottom: 16px; }
+    .modal-progress[hidden] { display: none; }
+
+    .success-msg {
+      margin: 0 0 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--ok);
+      background: var(--ok-dim);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .success-msg[hidden] { display: none; }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-actions[hidden] { display: none; }
+
+    .btn-ghost,
+    .btn-confirm,
+    .btn-close {
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-weight: 650;
+    }
+
+    .btn-ghost,
+    .btn-close {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn-confirm {
+      border: 0;
+      background: var(--accent);
+      color: #041018;
+    }
+
+    .btn-ghost:hover,
+    .btn-close:hover { background: rgba(255, 255, 255, 0.04); }
+
+    .btn-confirm:hover { filter: brightness(1.08); }
+
+    @media (max-width: 640px) {
+      .app { width: min(100% - 24px, 880px); padding-top: 32px; }
+
+      .backup {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .btn-restore { justify-self: start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .backup.is-new { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <div class="brand">
+        <span class="brand-mark">
+          <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 2 4 5.4V12c0 4.6 3.15 8.7 8 9.9 4.85-1.2 8-5.3 8-9.9V5.4L12 2zm0 6.1a1.9 1.9 0 0 1 1.9 1.9v.7h.5c.4 0 .7.3.7.7v3.1c0 .4-.3.7-.7.7H9.6c-.4 0-.7-.3-.7-.7v-3.1c0-.4.3-.7.7-.7h.5v-.7A1.9 1.9 0 0 1 12 8.1zm-1 2.6h2v-.7a1 1 0 0 0-2 0v.7z"/>
+          </svg>
+        </span>
+        <h1>Backup Vault</h1>
+      </div>
+      <p class="lead">Автоматическое резервное копирование с историей и восстановлением</p>
+    </header>
+
+    <div class="run">
+      <button type="button" class="btn-run" id="runBackup">Запустить бэкап сейчас</button>
+      <div class="progress-panel" id="backupProgress" hidden>
+        <div class="progress-track">
+          <div class="progress-fill" id="backupFill" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="backupLabel"></div>
+        </div>
+        <p class="progress-label" id="backupLabel">Подготовка...</p>
+      </div>
+    </div>
+
+    <section aria-labelledby="historyTitle">
+      <h2 id="historyTitle">История бэкапов</h2>
+      <ul class="history" id="history"></ul>
+    </section>
+
+    <section aria-labelledby="scheduleTitle">
+      <h2 id="scheduleTitle">Расписание</h2>
+      <p class="schedule-note">Автозапуск каждые 6 часов. Сейчас <strong id="nowClock">—</strong></p>
+      <div class="timeline-scroll">
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Восстановление</h3>
+      <p class="modal-text" id="modalText"></p>
+      <div class="modal-progress" id="modalProgress" hidden>
+        <div class="progress-track">
+          <div class="progress-fill" id="restoreFill" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Восстановление"></div>
+        </div>
+        <p class="progress-label" id="restoreLabel">Восстановление...</p>
+      </div>
+      <p class="success-msg" id="modalSuccess" hidden>Данные восстановлены</p>
+      <div class="modal-actions" id="modalActions">
+        <button type="button" class="btn-ghost" id="modalCancel">Отмена</button>
+        <button type="button" class="btn-confirm" id="modalConfirm">Подтвердить</button>
+      </div>
+      <div class="modal-actions" id="modalDone" hidden>
+        <button type="button" class="btn-close" id="modalClose">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SLOTS = [0, 6, 12, 18];
+    const BACKUP_MS = 3000;
+    const RESTORE_MS = 2000;
+    const STAGES = [
+      { until: 0.25, text: "Подготовка..." },
+      { until: 0.62, text: "Копирование данных..." },
+      { until: 0.9, text: "Проверка целостности..." },
+      { until: 1, text: "Готово ✓" }
+    ];
+
+    const backups = [
+      { id: 1, at: new Date(2026, 8, 30, 12, 0), size: "2.8 GB", ok: true },
+      { id: 2, at: new Date(2026, 8, 30, 6, 0), size: "2.7 GB", ok: true },
+      { id: 3, at: new Date(2026, 8, 29, 18, 0), size: "0.4 GB", ok: false },
+      { id: 4, at: new Date(2026, 8, 29, 12, 0), size: "2.6 GB", ok: true },
+      { id: 5, at: new Date(2026, 8, 29, 6, 0), size: "2.5 GB", ok: true },
+      { id: 6, at: new Date(2026, 8, 28, 18, 0), size: "2.4 GB", ok: true }
+    ];
+
+    let nextId = 7;
+    let nextGb = 2.9;
+    let backupRunning = false;
+    let restoreRunning = false;
+    let pendingRestore = null;
+    let restoreTrigger = null;
+
+    const historyEl = document.getElementById("history");
+    const timelineEl = document.getElementById("timeline");
+    const nowClock = document.getElementById("nowClock");
+    const runBtn = document.getElementById("runBackup");
+    const backupProgress = document.getElementById("backupProgress");
+    const backupFill = document.getElementById("backupFill");
+    const backupLabel = document.getElementById("backupLabel");
+    const modal = document.getElementById("modal");
+    const modalText = document.getElementById("modalText");
+    const modalProgress = document.getElementById("modalProgress");
+    const restoreFill = document.getElementById("restoreFill");
+    const restoreLabel = document.getElementById("restoreLabel");
+    const modalSuccess = document.getElementById("modalSuccess");
+    const modalActions = document.getElementById("modalActions");
+    const modalDone = document.getElementById("modalDone");
+    const modalConfirm = document.getElementById("modalConfirm");
+
+    function pad(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function formatDate(date) {
+      return pad(date.getDate()) + "." + pad(date.getMonth() + 1) + "." + date.getFullYear() + ", " + pad(date.getHours()) + ":" + pad(date.getMinutes());
+    }
+
+    function formatClock(date) {
+      return pad(date.getHours()) + ":" + pad(date.getMinutes());
+    }
+
+    function nearestSlot(date) {
+      const mins = date.getHours() * 60 + date.getMinutes();
+      let best = SLOTS[0];
+      let bestDist = Infinity;
+      SLOTS.forEach(function (hour) {
+        let dist = Math.abs(hour * 60 - mins);
+        if (dist > 720) dist = 1440 - dist;
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = hour;
+        }
+      });
+      return best;
+    }
+
+    function renderHistory(freshId) {
+      historyEl.replaceChildren();
+      backups.forEach(function (item) {
+        const li = document.createElement("li");
+        li.className = "backup" + (item.id === freshId ? " is-new" : "");
+
+        const when = document.createElement("div");
+        when.className = "when";
+        when.textContent = formatDate(item.at);
+
+        const size = document.createElement("div");
+        size.className = "size";
+        size.textContent = item.size;
+
+        const status = document.createElement("div");
+        status.className = "status " + (item.ok ? "ok" : "err");
+        status.textContent = item.ok ? "Успешно" : "Ошибка";
+
+        const restore = document.createElement("button");
+        restore.type = "button";
+        restore.className = "btn-restore";
+        restore.textContent = "Restore";
+        restore.dataset.restore = String(item.id);
+        if (!item.ok) {
+          restore.disabled = true;
+          restore.title = "Недоступно: бэкап завершился с ошибкой";
+        }
+
+        li.append(when, size, status, restore);
+        historyEl.append(li);
+      });
+    }
+
+    function renderSchedule() {
+      const now = new Date();
+      const nearest = nearestSlot(now);
+      nowClock.textContent = formatClock(now);
+      timelineEl.replaceChildren();
+
+      SLOTS.forEach(function (hour) {
+        const li = document.createElement("li");
+        const active = hour === nearest;
+        li.className = "slot" + (active ? " is-nearest" : "");
+        if (active) li.setAttribute("aria-current", "true");
+
+        const dot = document.createElement("span");
+        dot.className = "slot-dot";
+
+        const time = document.createElement("span");
+        time.className = "slot-time";
+        time.textContent = pad(hour) + ":00";
+
+        const badge = document.createElement("span");
+        badge.className = "slot-badge";
+        badge.textContent = active ? "ближе всего" : "";
+
+        li.append(dot, time, badge);
+        timelineEl.append(li);
+      });
+    }
+
+    function setFill(el, value) {
+      const pct = Math.round(value * 100);
+      el.style.width = pct + "%";
+      el.setAttribute("aria-valuenow", String(pct));
+    }
+
+    function animate(duration, onFrame) {
+      return new Promise(function (resolve) {
+        const start = performance.now();
+        function frame(now) {
+          const t = Math.min(1, (now - start) / duration);
+          onFrame(t);
+          if (t < 1) requestAnimationFrame(frame);
+          else resolve();
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+
+    function stageText(t) {
+      for (let i = 0; i < STAGES.length; i++) {
+        if (t <= STAGES[i].until) return STAGES[i].text;
+      }
+      return STAGES[STAGES.length - 1].text;
+    }
+
+    runBtn.addEventListener("click", function () {
+      if (backupRunning) return;
+      backupRunning = true;
+      runBtn.disabled = true;
+      backupProgress.hidden = false;
+      backupLabel.classList.remove("is-done");
+      backupLabel.textContent = STAGES[0].text;
+      setFill(backupFill, 0);
+
+      animate(BACKUP_MS, function (t) {
+        setFill(backupFill, t);
+        const text = stageText(t);
+        backupLabel.textContent = text;
+        backupLabel.classList.toggle("is-done", text.indexOf("Готово") === 0);
+      }).then(function () {
+        backups.unshift({
+          id: nextId++,
+          at: new Date(),
+          size: nextGb.toFixed(1) + " GB",
+          ok: true
+        });
+        nextGb = Math.round((nextGb + 0.1) * 10) / 10;
+        renderHistory(backups[0].id);
+        backupRunning = false;
+        runBtn.disabled = false;
+      });
+    });
+
+    historyEl.addEventListener("click", function (event) {
+      const button = event.target.closest("[data-restore]");
+      if (!button || button.disabled || restoreRunning) return;
+      const id = Number(button.dataset.restore);
+      const item = backups.find(function (entry) { return entry.id === id; });
+      if (!item || !item.ok) return;
+      openRestore(item, button);
+    });
+
+    function openRestore(item, trigger) {
+      pendingRestore = item;
+      restoreTrigger = trigger;
+      modalText.hidden = false;
+      modalText.textContent = "Восстановить данные на " + formatDate(item.at) + "? Это действие нельзя отменить.";
+      modalProgress.hidden = true;
+      modalSuccess.hidden = true;
+      modalActions.hidden = false;
+      modalDone.hidden = true;
+      setFill(restoreFill, 0);
+      restoreLabel.textContent = "Восстановление...";
+      restoreLabel.classList.remove("is-done");
+      modal.hidden = false;
+      modalConfirm.focus();
+    }
+
+    function closeModal() {
+      if (restoreRunning) return;
+      modal.hidden = true;
+      pendingRestore = null;
+      if (restoreTrigger) {
+        restoreTrigger.focus();
+        restoreTrigger = null;
+      }
+    }
+
+    document.getElementById("modalCancel").addEventListener("click", closeModal);
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    document.getElementById("modalBackdrop").addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeModal();
+    });
+
+    modalConfirm.addEventListener("click", function () {
+      if (!pendingRestore || restoreRunning) return;
+      restoreRunning = true;
+      modalActions.hidden = true;
+      modalText.hidden = true;
+      modalProgress.hidden = false;
+
+      animate(RESTORE_MS, function (t) {
+        setFill(restoreFill, t);
+        if (t >= 1) {
+          restoreLabel.textContent = "Данные восстановлены";
+          restoreLabel.classList.add("is-done");
+        }
+      }).then(function () {
+        modalProgress.hidden = true;
+        modalSuccess.hidden = false;
+        modalDone.hidden = false;
+        restoreRunning = false;
+        document.getElementById("modalClose").focus();
+      });
+    });
+
+    renderHistory();
+    renderSchedule();
+    setInterval(renderSchedule, 30000);
+  </script>
+</body>
+</html>

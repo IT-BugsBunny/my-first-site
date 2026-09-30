@@ -53,6 +53,8 @@
         "Симуляция CI/CD: сборка, тесты, деплой и прод. Как проверить: Demo → «Запустить деплой» — этапы идут по очереди, лог пишется построчно; примерно каждый пятый запуск падает на Test.",
       projFleetDesc:
         "Панель управления контейнерами. Как проверить: Demo → redis уже stopped → Start (зелёная точка ~0.5 с); Restart — жёлтый статус на секунду; Logs — строки лога сервиса.",
+      projVaultDesc:
+        "Резервное копирование с историей и восстановлением. Как проверить: Demo → «Запустить бэкап сейчас» — прогресс около 3 секунд и новая запись «Успешно»; Restore у успешного бэкапа → подтверждение → «Данные восстановлены». У статуса «Ошибка» Restore недоступен.",
     },
     en: {
       pageTitle: "About me",
@@ -107,6 +109,8 @@
         "CI/CD simulation: build, tests, deploy, and production. Try: Demo → Run deploy — stages advance in order and the log fills line by line; about one run in five fails at Test.",
       projFleetDesc:
         "Container control panel. Try: Demo → redis starts stopped → Start (green dot after ~0.5s); Restart shows yellow for a second; Logs opens sample lines for that service.",
+      projVaultDesc:
+        "Backup system with history and restore. Try: Demo → Run backup now — about 3 seconds of progress, then a new Success entry; Restore on a successful backup → confirm → Data restored. Restore is disabled on the failed entry.",
     },
   };
 
