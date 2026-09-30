@@ -49,6 +49,8 @@
         "Лендинг барбершопа: прайс, до/после слайдер, календарь записи. Как проверить: Demo → «Работы» (ползунок) → день в календаре → слот → «Подтвердить запись».",
       projPulseDesc:
         "Панель мониторинга. Как проверить: подождите 1–2 сек — метрики и лог обновятся сами, worker-queue может сменить статус.",
+      projPipeDesc:
+        "Симуляция CI/CD: сборка, тесты, деплой и прод. Как проверить: Demo → «Запустить деплой» — этапы идут по очереди, лог пишется построчно; примерно каждый пятый запуск падает на Test.",
     },
     en: {
       pageTitle: "About me",
@@ -99,6 +101,8 @@
         "Barbershop landing: price list, before/after slider, booking calendar. Try: Demo → Works (slider) → day → slot → Confirm.",
       projPulseDesc:
         "Monitoring panel. Try: wait 1–2 sec — metrics and log update on their own; worker-queue may change status.",
+      projPipeDesc:
+        "CI/CD simulation: build, tests, deploy, and production. Try: Demo → Run deploy — stages advance in order and the log fills line by line; about one run in five fails at Test.",
     },
   };
 
