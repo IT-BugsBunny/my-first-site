@@ -55,6 +55,8 @@
         "Панель управления контейнерами. Как проверить: Demo → redis уже stopped → Start (зелёная точка ~0.5 с); Restart — жёлтый статус на секунду; Logs — строки лога сервиса.",
       projVaultDesc:
         "Резервное копирование с историей и восстановлением. Как проверить: Demo → «Запустить бэкап сейчас» — прогресс около 3 секунд и новая запись «Успешно»; Restore у успешного бэкапа → подтверждение → «Данные восстановлены». У статуса «Ошибка» Restore недоступен.",
+      projLogDesc:
+        "Агрегатор логов. Как проверить: Demo → поиск по слову timeout; кнопки ERROR / WARN / INFO фильтруют ленту. Каждые 2–3 секунды сверху появляется новая строка. Две ошибки подряд за 3 секунды — предупреждение «Обнаружена серия ошибок», график растёт на ERROR.",
     },
     en: {
       pageTitle: "About me",
@@ -111,6 +113,8 @@
         "Container control panel. Try: Demo → redis starts stopped → Start (green dot after ~0.5s); Restart shows yellow for a second; Logs opens sample lines for that service.",
       projVaultDesc:
         "Backup system with history and restore. Try: Demo → Run backup now — about 3 seconds of progress, then a new Success entry; Restore on a successful backup → confirm → Data restored. Restore is disabled on the failed entry.",
+      projLogDesc:
+        "Log aggregator. Try: Demo → search for timeout; ERROR / WARN / INFO buttons filter the stream. A new line appears at the top every 2–3 seconds. Two errors in a row within 3 seconds raise an alert, and the chart grows on each ERROR.",
     },
   };
 

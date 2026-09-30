@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Explorer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #161b22;
+      --line: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --faint: #6e7681;
+      --error: #f85149;
+      --warn: #d29922;
+      --info: #58a6ff;
+      --live: #3fb950;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 420px at 100% -10%, rgba(248, 81, 73, 0.08), transparent 55%),
+        radial-gradient(700px 380px at 0% 0%, rgba(88, 166, 255, 0.07), transparent 50%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    .app {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+    }
+
+    header { margin-bottom: 22px; }
+
+    .brand {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .mark {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #21262d;
+      border: 1px solid var(--line);
+      color: var(--info);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .lead {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 4px 10px 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(13, 17, 23, 0.55);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--live);
+      box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.6);
+      animation: pulse 1.8s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 7px rgba(63, 185, 80, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+    }
+
+    .hint {
+      margin: 12px 0 0;
+      max-width: 52em;
+      color: var(--faint);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .search {
+      position: relative;
+      flex: 1 1 240px;
+    }
+
+    .search svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--faint);
+      pointer-events: none;
+    }
+
+    .search input {
+      width: 100%;
+      height: 40px;
+      padding: 0 12px 0 36px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search input:focus {
+      border-color: var(--info);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.18);
+    }
+
+    .levels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .lvl-btn {
+      height: 36px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+
+    .lvl-btn:hover { color: var(--text); background: #21262d; }
+
+    .lvl-btn.is-active {
+      color: var(--text);
+      background: #21262d;
+      border-color: #8b949e;
+    }
+
+    .lvl-btn[data-level="ERROR"].is-active {
+      color: var(--error);
+      border-color: var(--error);
+      background: rgba(248, 81, 73, 0.12);
+    }
+
+    .lvl-btn[data-level="WARN"].is-active {
+      color: var(--warn);
+      border-color: var(--warn);
+      background: rgba(210, 153, 34, 0.12);
+    }
+
+    .lvl-btn[data-level="INFO"].is-active {
+      color: var(--info);
+      border-color: var(--info);
+      background: rgba(88, 166, 255, 0.12);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: 0.01em;
+    }
+
+    .count {
+      color: var(--faint);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .feed {
+      max-height: 560px;
+      overflow-y: auto;
+      background: var(--bg);
+    }
+
+    .feed::-webkit-scrollbar { width: 10px; }
+    .feed::-webkit-scrollbar-thumb {
+      background: #30363d;
+      border-radius: 8px;
+      border: 2px solid var(--bg);
+    }
+
+    .log {
+      display: grid;
+      grid-template-columns: 8.4ch 4.6rem minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 8px 14px;
+      border-bottom: 1px solid #21262d;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .log.is-new { animation: arrive 0.45s ease; }
+
+    @keyframes arrive {
+      from { background: rgba(88, 166, 255, 0.12); }
+      to { background: transparent; }
+    }
+
+    .log time {
+      color: var(--faint);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .badge {
+      display: inline-block;
+      width: fit-content;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-error { color: var(--error); background: rgba(248, 81, 73, 0.15); }
+    .badge-warn { color: var(--warn); background: rgba(210, 153, 34, 0.16); }
+    .badge-info { color: var(--info); background: rgba(88, 166, 255, 0.15); }
+
+    .log p {
+      margin: 0;
+      color: #c9d1d9;
+      overflow-wrap: anywhere;
+    }
+
+    .empty {
+      padding: 36px 16px;
+      text-align: center;
+      color: var(--faint);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 13px;
+    }
+
+    .chart-card { position: sticky; top: 16px; }
+
+    .chart-wrap {
+      height: 280px;
+      padding: 12px 12px 16px;
+    }
+
+    .toast {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      z-index: 20;
+      transform: translateX(-50%) translateY(-140%);
+      padding: 10px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(248, 81, 73, 0.55);
+      background: #3d1a18;
+      color: #ffd8d6;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+      transition: transform 0.28s ease;
+      pointer-events: none;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+      .chart-card { position: static; }
+      .feed { max-height: 420px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pulse, .log.is-new { animation: none; }
+      .toast { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toast" id="toast" role="status" aria-live="polite">⚠ Обнаружена серия ошибок</div>
+
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="mark" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M4 5h16v14H4z"/>
+            <path d="M7 9h6M7 12h10M7 15h8"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Log Explorer</h1>
+          <p class="lead">Поиск и анализ логов в реальном времени</p>
+        </div>
+      </div>
+      <div class="status"><span class="pulse" aria-hidden="true"></span> LIVE · tail</div>
+      <p class="hint">Как проверить: введите timeout в поиск — останутся совпадения. Кнопки ERROR / WARN / INFO оставляют только свой уровень. Каждые 2–3 секунды сверху появляется новая строка. Две ошибки подряд за 3 секунды поднимают предупреждение, а график растёт на каждой ERROR.</p>
+    </header>
+
+    <div class="filters">
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="M20 20l-3.5-3.5"/>
+        </svg>
+        <input id="query" type="search" placeholder="Поиск по тексту" autocomplete="off" aria-label="Поиск по тексту">
+      </label>
+      <div class="levels" role="group" aria-label="Уровень лога">
+        <button type="button" class="lvl-btn is-active" data-level="ALL" aria-pressed="true">ALL</button>
+        <button type="button" class="lvl-btn" data-level="ERROR" aria-pressed="false">ERROR</button>
+        <button type="button" class="lvl-btn" data-level="WARN" aria-pressed="false">WARN</button>
+        <button type="button" class="lvl-btn" data-level="INFO" aria-pressed="false">INFO</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <section class="panel" aria-label="Лента логов">
+        <div class="panel-head">
+          <h2>Лента</h2>
+          <span class="count" id="visible-count">0</span>
+        </div>
+        <div class="feed" id="feed"></div>
+      </section>
+
+      <section class="panel chart-card" aria-label="Ошибки по времени">
+        <div class="panel-head">
+          <h2>Ошибки по времени</h2>
+          <span class="count">10 мин</span>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="errors-chart"></canvas>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const POOL = [
+      { level: "ERROR", text: "Connection timeout on port 5432" },
+      { level: "INFO", text: "User authenticated successfully" },
+      { level: "WARN", text: "Cache miss for key: session_123" },
+      { level: "ERROR", text: "Disk usage exceeded 90% on /var/log" },
+      { level: "INFO", text: "Health check passed for api-gateway" },
+      { level: "WARN", text: "Retrying request to payments-service (attempt 2)" },
+      { level: "ERROR", text: "Failed to acquire lock on job: nightly-report" },
+      { level: "INFO", text: "Deployed revision 4f2a1c to production" },
+      { level: "WARN", text: "Slow query detected: 842ms on orders" },
+      { level: "ERROR", text: "TLS handshake failed for upstream auth.internal" },
+      { level: "INFO", text: "Rotated log file app.log.1 (12 MB)" },
+      { level: "WARN", text: "Rate limit approaching for client 10.0.4.18" },
+      { level: "INFO", text: "Worker-3 joined the consumer group" },
+      { level: "ERROR", text: "Out of memory while indexing shard logs-2026.09.30" },
+      { level: "WARN", text: "Certificate expires in 14 days: api.example.com" }
+    ];
+
+    const SEED = [
+      { level: "ERROR", text: "Connection timeout on port 5432" },
+      { level: "WARN", text: "Cache miss for key: session_123" },
+      { level: "INFO", text: "User authenticated successfully" },
+      { level: "INFO", text: "Health check passed for api-gateway" },
+      { level: "ERROR", text: "Failed to acquire lock on job: nightly-report" },
+      { level: "WARN", text: "Slow query detected: 842ms on orders" },
+      { level: "INFO", text: "Deployed revision 4f2a1c to production" },
+      { level: "WARN", text: "Retrying request to payments-service (attempt 2)" },
+      { level: "ERROR", text: "TLS handshake failed for upstream auth.internal" },
+      { level: "INFO", text: "Worker-3 joined the consumer group" },
+      { level: "WARN", text: "Rate limit approaching for client 10.0.4.18" },
+      { level: "INFO", text: "Rotated log file app.log.1 (12 MB)" },
+      { level: "ERROR", text: "Disk usage exceeded 90% on /var/log" },
+      { level: "INFO", text: "User authenticated successfully" },
+      { level: "WARN", text: "Certificate expires in 14 days: api.example.com" },
+      { level: "INFO", text: "Health check passed for api-gateway" },
+      { level: "ERROR", text: "Out of memory while indexing shard logs-2026.09.30" },
+      { level: "WARN", text: "Cache miss for key: session_884" }
+    ];
+
+    const feedEl = document.getElementById("feed");
+    const queryEl = document.getElementById("query");
+    const countEl = document.getElementById("visible-count");
+    const toastEl = document.getElementById("toast");
+    const levelButtons = Array.from(document.querySelectorAll(".lvl-btn"));
+
+    let activeLevel = "ALL";
+    let logs = [];
+    let errorStreak = [];
+    let toastTimer = null;
+    let currentMinute = 0;
+
+    function pad(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function formatClock(date) {
+      return pad(date.getHours()) + ":" + pad(date.getMinutes()) + ":" + pad(date.getSeconds());
+    }
+
+    function formatMinute(date) {
+      return pad(date.getHours()) + ":" + pad(date.getMinutes());
+    }
+
+    function escapeHtml(value) {
+      return value.replace(/[&<>"']/g, function (ch) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+      });
+    }
+
+    function render() {
+      const query = queryEl.value.trim().toLowerCase();
+      const nearTop = feedEl.scrollTop < 12;
+      const visible = logs.filter(function (entry) {
+        if (activeLevel !== "ALL" && entry.level !== activeLevel) return false;
+        if (query && entry.text.toLowerCase().indexOf(query) === -1) return false;
+        return true;
+      });
+
+      if (!visible.length) {
+        feedEl.innerHTML = '<div class="empty">Нет записей по этому фильтру</div>';
+      } else {
+        feedEl.innerHTML = visible.map(function (entry) {
+          const level = entry.level.toLowerCase();
+          return (
+            '<article class="log' + (entry.fresh ? " is-new" : "") + '">' +
+              "<time>" + entry.time + "</time>" +
+              '<span class="badge badge-' + level + '">' + entry.level + "</span>" +
+              "<p>" + escapeHtml(entry.text) + "</p>" +
+            "</article>"
+          );
+        }).join("");
+      }
+
+      logs.forEach(function (entry) { entry.fresh = false; });
+      countEl.textContent = visible.length + " / " + logs.length;
+      if (nearTop) feedEl.scrollTop = 0;
+    }
+
+    function setLevel(level) {
+      activeLevel = level;
+      levelButtons.forEach(function (button) {
+        const on = button.dataset.level === level;
+        button.classList.toggle("is-active", on);
+        button.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      render();
+    }
+
+    const now = new Date();
+    now.setSeconds(0, 0);
+    currentMinute = now.getTime();
+    const labels = [];
+    const counts = [1, 0, 2, 1, 4, 1, 0, 3, 2, 1];
+    for (let i = 9; i >= 0; i--) {
+      labels.push(formatMinute(new Date(currentMinute - i * 60000)));
+    }
+
+    const chart = new Chart(document.getElementById("errors-chart"), {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "ERROR",
+          data: counts,
+          borderColor: "#f85149",
+          backgroundColor: "rgba(248, 81, 73, 0.16)",
+          pointBackgroundColor: "#f85149",
+          pointBorderColor: "#f85149",
+          pointRadius: 3,
+          pointHoverRadius: 5,
+          borderWidth: 2,
+          fill: true,
+          tension: 0.35
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: "#161b22",
+            borderColor: "#30363d",
+            borderWidth: 1,
+            titleColor: "#e6edf3",
+            bodyColor: "#f85149"
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: "#8b949e", font: { family: "Courier New", size: 11 }, maxRotation: 0 },
+            grid: { color: "rgba(48, 54, 61, 0.7)" }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { color: "#8b949e", precision: 0, font: { family: "Courier New", size: 11 } },
+            grid: { color: "rgba(48, 54, 61, 0.7)" }
+          }
+        }
+      }
+    });
+
+    function rollChartToNow() {
+      const minute = new Date();
+      minute.setSeconds(0, 0);
+      let steps = Math.round((minute.getTime() - currentMinute) / 60000);
+      if (steps <= 0) return;
+      if (steps > 10) steps = 10;
+      for (let i = 0; i < steps; i++) {
+        counts.shift();
+        labels.shift();
+        counts.push(0);
+        currentMinute += 60000;
+        labels.push(formatMinute(new Date(currentMinute)));
+      }
+    }
+
+    function bumpErrors() {
+      rollChartToNow();
+      counts[counts.length - 1] += 1;
+      chart.update();
+    }
+
+    function showBurst() {
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () {
+        toastEl.classList.remove("show");
+      }, 3200);
+    }
+
+    function pushLog(entry, fresh) {
+      const stamp = entry.at || new Date();
+      logs.unshift({
+        level: entry.level,
+        text: entry.text,
+        time: formatClock(stamp),
+        at: stamp.getTime(),
+        fresh: fresh
+      });
+      if (logs.length > 80) logs.length = 80;
+
+      if (fresh && entry.level === "ERROR") {
+        bumpErrors();
+        const moment = stamp.getTime();
+        errorStreak.push(moment);
+        errorStreak = errorStreak.filter(function (ts) { return moment - ts <= 3000; });
+        if (errorStreak.length >= 2) showBurst();
+      } else if (fresh) {
+        errorStreak = [];
+      }
+    }
+
+    let cursor = Date.now() - 6000;
+    SEED.forEach(function (entry) {
+      cursor -= 5000 + Math.floor(Math.random() * 14000);
+      pushLog({ level: entry.level, text: entry.text, at: new Date(cursor) }, false);
+    });
+    logs.reverse();
+    render();
+
+    queryEl.addEventListener("input", render);
+    levelButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        setLevel(button.dataset.level);
+      });
+    });
+
+    function scheduleNext() {
+      const delay = 2000 + Math.random() * 1000;
+      setTimeout(function () {
+        const next = POOL[Math.floor(Math.random() * POOL.length)];
+        pushLog(next, true);
+        render();
+        scheduleNext();
+      }, delay);
+    }
+
+    scheduleNext();
+  </script>
+</body>
+</html>
