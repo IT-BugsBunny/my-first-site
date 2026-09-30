@@ -65,8 +65,21 @@ body {
 }
 
 .price-links {
-  text-align: left;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: 4px;
+  text-align: left;
+}
+
+.price-links .price-link {
+  margin-top: 0;
+}
+
+.price-links__sep {
+  color: #666;
+  font-weight: 600;
 }
 
 .avatar {
